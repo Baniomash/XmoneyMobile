@@ -1,20 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { View, } from 'react-native';
+import { Header } from './src/components/Header';
 
 export default function App() {
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
+
+
+    function handleOpenNewTransactionModal(){
+        setIsNewTransactionModalOpen(true);
+    }
+
+    function handleCloseNewTransactionModal(){
+        setIsNewTransactionModalOpen(false);
+    }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View>
+      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <StatusBar style="auto" />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
