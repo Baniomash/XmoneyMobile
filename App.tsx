@@ -1,24 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { View, } from 'react-native';
-import { Header } from './src/components/Header';
+import { useState } from "react";
+import { View, Image } from "react-native";
+import { Cards } from "./src/components/Cards";
+import { Header } from "./src/components/Header";
 
 export default function App() {
-  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
+    useState(false);
 
+  function handleOpenNewTransactionModal() {
+    setIsNewTransactionModalOpen(true);
+  }
 
-    function handleOpenNewTransactionModal(){
-        setIsNewTransactionModalOpen(true);
-    }
-
-    function handleCloseNewTransactionModal(){
-        setIsNewTransactionModalOpen(false);
-    }
+  function handleCloseNewTransactionModal() {
+    setIsNewTransactionModalOpen(false);
+  }
   return (
     <View>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-      <StatusBar style="auto" />
+      <Cards />
     </View>
   );
 }
-
