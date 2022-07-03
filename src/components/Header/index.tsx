@@ -1,4 +1,5 @@
-import { Button, Text, Image } from "react-native";
+import React, { useState } from "react";
+import { Button, Text } from "react-native";
 import { Container, Content } from "./styles";
 
 interface HeaderProps {
@@ -9,12 +10,12 @@ export function Header({ onOpenNewTransactionModal }: HeaderProps) {
   return (
     <Container>
       <Content>
-        <Image source={require("./../../../assets/Logo")} />
+        {/* <Image source={require("./../../../assets/Logo")} /> */}
         <Text>XMoney</Text>
         <Button
           title="Nova Transação"
           color="#6933FF"
-          onPress={() => onOpenNewTransactionModal}
+          onPress={onOpenNewTransactionModal}
         />
       </Content>
     </Container>

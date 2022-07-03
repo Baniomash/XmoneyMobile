@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { View, Image } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
 import { Cards } from "./src/components/Cards";
 import { Header } from "./src/components/Header";
+import { NewTransactionModal } from "./src/components/NewTransactionModal";
 
 export default function App() {
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
@@ -18,6 +19,10 @@ export default function App() {
     <View>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Cards />
+      <NewTransactionModal
+        isOpen={isNewTransactionModalOpen}
+        onRequestClose={handleCloseNewTransactionModal}
+      />
     </View>
   );
 }
