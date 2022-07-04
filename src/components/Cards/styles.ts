@@ -1,22 +1,27 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  margin-top: -60px;
+  margin-top: -100px;
 `;
 export const Card = styled.View`
   background-color: #ffffff;
   padding: 24px 32px;
-  border-radius: 4px;
-  margin: 0 16px;
+  border-radius: 5px;
+  margin: 0 20px;
+  width: 300px;
+  height: 200px;
 `;
 export const CardTotal = styled.View`
   background-color: #33cc95;
   padding: 24px 32px;
   border-radius: 4px;
-  margin: 0 16px;
+  margin: 0 20px;
+  width: 300px;
+  height: 200px;
 `;
 export const Header = styled.View`
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 `;

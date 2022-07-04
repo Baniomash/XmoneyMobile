@@ -7,11 +7,27 @@ export const Container = styled.View`
 export const Content = styled.View`
   min-width: 100%;
   margin: 30px auto 0px auto;
-
-  padding: 32px 16px 130px;
+  padding: 32px 20px 160px;
   display: flex;
   flex-direction: row;
   align-items: center;
   text-align: left;
   justify-content: space-between;
+`;
+
+export const LogoWrapper = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const LogoText = styled.Text`
+  margin-left: 10px;
+  color: white;
+  font: bold 20px Arial;
+`;
+
+export const LogoImage = styled.Image`
+  width: 60px;
+  height: 60px;
 `;

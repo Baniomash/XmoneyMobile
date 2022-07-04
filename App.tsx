@@ -16,7 +16,7 @@ export default function App() {
     setIsNewTransactionModalOpen(false);
   }
   return (
-    <View>
+    <View style={{ backgroundColor: "#f0f2f5" }}>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Cards />
       <NewTransactionModal

@@ -9,7 +9,7 @@ export function Cards() {
         <Card>
           <Header>
             <Text>Entradas</Text>
-            {/* <Image source={require("./../../../assets/Entradas")} /> */}
+            <Image source={require("./../../../assets/Entradas.png")} />
           </Header>
           <Strong>2000</Strong>
         </Card>
@@ -17,7 +17,7 @@ export function Cards() {
         <Card>
           <Header>
             <Text>Saídas</Text>
-            {/* <Image source={require("./../../../assets/EntradasSaidas")} /> */}
+            <Image source={require("./../../../assets/Saidas.png")} />
           </Header>
           <Strong>1000</Strong>
         </Card>
@@ -25,7 +25,7 @@ export function Cards() {
         <CardTotal>
           <Header>
             <Text>Total</Text>
-            {/* <Image source={require("./../../../assets/Total")} /> */}
+            <Image source={require("./../../../assets/Total.png")} />
           </Header>
           <Strong>1000</Strong>
         </CardTotal>
