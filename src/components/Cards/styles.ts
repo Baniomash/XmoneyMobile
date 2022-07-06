@@ -24,6 +24,7 @@ export const Header = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 `;
 export const Strong = styled.Text`
   margin-top: 16px;

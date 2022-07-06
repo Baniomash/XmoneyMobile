@@ -24,7 +24,8 @@ export const LogoWrapper = styled.View`
 export const LogoText = styled.Text`
   margin-left: 10px;
   color: white;
-  font: bold 20px Arial;
+  font-weight: bold;
+  font-size: 20px;
 `;
 
 export const LogoImage = styled.Image`
