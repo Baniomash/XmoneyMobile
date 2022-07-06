@@ -1,30 +1,22 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
-import { View } from "react-native";
-import { Cards } from "./src/components/Cards";
-import { Header } from "./src/components/Header";
-import { NewTransactionModal } from "./src/components/NewTransactionModal";
-import { TransactionsTable } from "./src/components/TransactionsTable";
+import { ChartsPage } from "./src/screens/ChartsPage";
+import { LoginPage } from "./src/screens/LoginPage";
+import { TransactionsPage } from "./src/screens/TransactionsPage";
 
 export default function App() {
-  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
-    useState(false);
-
-  function handleOpenNewTransactionModal() {
-    setIsNewTransactionModalOpen(true);
-  }
-
-  function handleCloseNewTransactionModal() {
-    setIsNewTransactionModalOpen(false);
-  }
+  const Stack = createNativeStackNavigator();
   return (
-    <View style={{ backgroundColor: "#f0f2f5" }}>
-      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-      <Cards />
-      <TransactionsTable />
-      <NewTransactionModal
-        isOpen={isNewTransactionModalOpen}
-        onRequestClose={handleCloseNewTransactionModal}
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="loginPage"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="loginPage" component={LoginPage} />
+        <Stack.Screen name="transactionsPage" component={TransactionsPage} />
+        <Stack.Screen name="chartsPage" component={ChartsPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
