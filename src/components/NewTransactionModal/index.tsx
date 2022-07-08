@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Modal, TextInput } from "react-native";
+import { Modal } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
+
 import {
   BtnModal,
   BtnTitulo,
   CenteredView,
-  MainModal,
+  Input,
   ModalTitle,
   ModalView,
   RadioBox,
@@ -21,13 +23,13 @@ export function NewTransactionModal({
   onRequestClose,
 }: NewTransactionModalProps) {
   const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [type, setType] = useState("deposit");
 
   return (
     <CenteredView>
-      <MainModal
+      <Modal
         animationType="slide"
         transparent={true}
         visible={isOpen}
@@ -36,10 +38,12 @@ export function NewTransactionModal({
         <CenteredView>
           <ModalView>
             <ModalTitle>Cadastrar transação</ModalTitle>
-            <TextInput
-              onChangeText={setTitle}
-              value={title}
-              placeholder="Nome"
+            <Input onChangeText={setTitle} value={title} placeholder="Nome" />
+            <Input
+              onChangeText={setAmount}
+              value={amount}
+              placeholder="Preço"
+              keyboardType="numeric"
             />
             <TransactioTypeContainer>
               <RadioBox
@@ -55,12 +59,24 @@ export function NewTransactionModal({
                 }}
               />
             </TransactioTypeContainer>
+            <RNPickerSelect
+              placeholder={{}}
+              onValueChange={(value) => console.log(value)}
+              items={[
+                { label: "Gasto Padrão", value: "Gasto Padrão" },
+                { label: "TypeStript", value: "TypeStript" },
+                { label: "Python", value: "Python" },
+                { label: "Java", value: "Java" },
+                { label: "C++", value: "C++" },
+                { label: "C", value: "C" },
+              ]}
+            />
             <BtnModal onPress={onRequestClose}>
               <BtnTitulo>Cadastrar</BtnTitulo>
             </BtnModal>
           </ModalView>
         </CenteredView>
-      </MainModal>
+      </Modal>
     </CenteredView>
   );
 }
