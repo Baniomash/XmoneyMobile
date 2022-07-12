@@ -10,7 +10,6 @@ export const ModalView = styled.View`
   border-radius: 20px;
   padding: 35px;
   width: 100%;
-  align-items: center;
   background-color: #f9f9f9;
 `;
 
@@ -21,33 +20,54 @@ export const Input = styled.TextInput`
   width: 100%;
   height: 56px;
   margin-top: 8px;
+  padding: 16px;
 `;
 
 export const BtnModal = styled.Pressable`
-  padding: 10px;
   background-color: #33cc95;
   border-radius: 5px;
 `;
 
 export const ModalTitle = styled.Text`
   margin-bottom: 24px;
+  font-size: 20px;
+  line-height: 20px;
+  font-style: normal;
+  font-weight: 600;
+  color: #363f5f;
 `;
 
-export const BtnTitulo = styled.Text``;
+export const BtnTitulo = styled.Text`
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+  height: 56px;
+  width: 327px;
+  text-align: center;
+  padding: 18px;
+`;
 
 export const TransactioTypeContainer = styled.View`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
 `;
 
-export const RadioBox = styled.Button`
-  height: 64px;
+export const RadioBox = styled.Pressable`
   border: 1px solid #d7d7d7;
-  margin: 8px;
-  padding: 16px;
   display: flex;
+  padding: 18px 35px;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  background: #33cc95;
+  justify-content: space-between;
+  background: #ffffff;
+  height: 56px;
+  width: 159px;
+  border-radius: 5px;
+  margin: 8px auto;
+`;
+
+export const Icon = styled.Image`
+  width: 25px;
+  height: 25px;
 `;
