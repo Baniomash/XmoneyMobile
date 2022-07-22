@@ -80,7 +80,7 @@ export function NewTransactionModal({
               placeholder={{ label: "Selecione banco utilizado" }}
               style={{
                 inputAndroid: {
-                  backgroundColor: "#e7e9ee",
+                  backgroundColor: "#ffffff",
                   marginTop: 8,
                   marginBottom: 8,
                 },
