@@ -1,5 +1,7 @@
-import axios from "axios";
+const axios = require("axios").default;
 
-export const api = axios.create({
-    baseURL: 'exp://192.168.18.87:19000/api',
-})
+const api = axios.create({
+  baseURL: "https://62d946605d893b27b2e21670.mockapi.io",
+});
+
+module.exports.api = api;
