@@ -1,18 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useContext } from "react";
 import { View } from "react-native";
-import { RootStackParams } from "../../App";
+import { AuthStackParams, MyContext } from "../../App";
 import { LoginBoard } from "../components/LoginBoard";
 
-type Props = NativeStackScreenProps<RootStackParams>;
+type Props = NativeStackScreenProps<AuthStackParams>;
 
-export function LoginPage({ navigation }: Props) {
+export function LoginPage(navigation: Props) {
+  const value = useContext(MyContext)
   return (
     <View>
-      <LoginBoard
-        navigation={navigation}
-        route={{ key: "", name: "", path: undefined }}
-      />
+      <LoginBoard onLogin={value.onLogin} navigation={navigation} />
     </View>
   );
 }

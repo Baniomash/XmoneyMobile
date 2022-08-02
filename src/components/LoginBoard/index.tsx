@@ -1,24 +1,26 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { Text } from "react-native";
-import { RootStackParams } from "../../../App";
+import { Button, Text } from "react-native";
+import { AuthStackParams } from "../../../App";
 import { Input, ModalTitle, ModalView } from "../NewTransactionModal/styles";
 import { BtnLogin, Container, BtnTitulo } from "./styles";
 
-type Props = NativeStackScreenProps<RootStackParams>;
+type Props = NativeStackScreenProps<AuthStackParams>;
 
-export function LoginBoard({ navigation }: Props) {
+interface LoginBoardProps {
+  onLogin: () => void;
+  navigation: Props;
+}
+
+export function LoginBoard({ onLogin, navigation }: LoginBoardProps) {
   return (
     <Container>
       <ModalView>
         <ModalTitle>Login</ModalTitle>
         <Input placeholder="Login ou e-mail..." />
         <Input placeholder="Senha" />
-        <BtnLogin
-          onPress={() => {
-            navigation.navigate("transactionsPage");
-          }}
-        >
+        <Button title="Cadastrar" onPress={() =>{navigation.navigation.navigate("signinPage")}} />
+        <BtnLogin onPress={onLogin}>
           <BtnTitulo>Entrar</BtnTitulo>
         </BtnLogin>
         <Text>Você pode autenticar usando a digital</Text>
