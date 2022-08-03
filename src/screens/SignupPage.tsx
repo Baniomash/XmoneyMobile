@@ -1,21 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useContext } from "react";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { AuthStackParams, MyContext } from "../../App";
+import { SignupBoard } from "../components/SignupBoard";
 
 type Props = NativeStackScreenProps<AuthStackParams>;
 
-export function SigninPage(navigation: Props) {
+export function SignupPage(navigation: Props) {
   //   const value = useContext(MyContext)
   return (
     <View>
-      <Text style={{ marginTop: 20 }}>Sign in</Text>
-      <Button
-        title="Cadastrar"
-        onPress={() => {
-          navigation.navigation.navigate("loginPage");
-        }}
-      />
+      <SignupBoard navigation={navigation} />
     </View>
   );
 }

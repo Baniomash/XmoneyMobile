@@ -3,14 +3,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { ChartsPage } from "./src/screens/ChartsPage";
 import { LoginPage } from "./src/screens/LoginPage";
-import { SigninPage } from "./src/screens/SigninPage";
+import { SignupPage } from "./src/screens/SignupPage";
 import { TransactionsPage } from "./src/screens/TransactionsPage";
 
 export const MyContext = React.createContext({ onLogin: () => {} });
 
 export type AuthStackParams = {
   loginPage: any;
-  signinPage: any;
+  signupPage: any;
 };
 
 export type AppStackParams = {
@@ -55,7 +55,7 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <AuthStack.Screen name="loginPage" component={LoginPage} />
-          <AuthStack.Screen name="signinPage" component={SigninPage} />
+          <AuthStack.Screen name="signupPage" component={SignupPage} />
         </AuthStack.Navigator>
       </NavigationContainer>
     </MyContext.Provider>
