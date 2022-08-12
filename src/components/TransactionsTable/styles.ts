@@ -4,30 +4,43 @@ export const Container = styled.View`
   margin-top: 16px;
   align-items: center;
 `;
+
+export const Topo = styled.View`
+  width: 327px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px;
+`;
+
 export const Card = styled.View`
   background: #ffffff;
   border-radius: 5px;
-  width: 327px;
+  width: 330px;
   align-items: center;
+`;
+
+export const Conteudo = styled.View`
+  align-items: center;
+  padding: 12px;
 `;
 
 export const Header = styled.View`
   border-radius: 5px;
   flex-direction: row;
   justify-content: space-between;
-  width: 250px;
+  width: 290px;
   padding: 12px;
 `;
 
 export const Cabeçalho = styled.View`
-  align-items: space-between;
+  text-align: left;
 `;
 
 export const Footer = styled.View`
   border-radius: 5px;
   flex-direction: row;
   justify-content: space-between;
-  width: 250px;
+  width: 290px;
   padding: 12px;
 `;
 
@@ -36,10 +49,21 @@ export const Titulo = styled.Text`
   line-height: 21px;
 `;
 
-export const Valor = styled.Text``;
+export const Valor = styled.Text`
+  font-size: 20px;
+  line-height: 30px;
+`;
 
 export const Banco = styled.Text``;
 
-export const Categoria = styled.Text``;
+export const Categoria = styled.Text` 
+  font-size: 14px;
+  line-height: 21px;
+  color: #969CB3;
+`;
 
-export const Data = styled.Text``;
+export const Data = styled.Text` 
+  font-size: 14px;
+  line-height: 21px;
+  color: #969CB3;
+`;
