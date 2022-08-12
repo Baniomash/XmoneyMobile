@@ -28,7 +28,6 @@ export default function App() {
 
   function handleAuthent() {
     setIsAuthent(true);
-    console.log(isAuthent);
   }
 
   if (isAuthent) {
