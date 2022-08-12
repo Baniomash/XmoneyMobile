@@ -1,30 +1,34 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { Button, Text } from "react-native";
+import { Button } from "react-native";
 import { AuthStackParams } from "../../../App";
 import { Input, ModalTitle, ModalView } from "../NewTransactionModal/styles";
 import {
-  BtnLogin,
+  BtnCadastrar,
   Container,
   BtnLoginTitulo,
-  BtnCadastrar,
+  BtnLogin,
   BtnCadastrarTitulo,
 } from "./styles";
 
 type Props = NativeStackScreenProps<AuthStackParams>;
 
-interface LoginBoardProps {
-  onLogin: () => void;
+interface SignupBoardProps {
   navigation: Props;
 }
 
-export function LoginBoard({ onLogin, navigation }: LoginBoardProps) {
+export function SignupBoard({ navigation }: SignupBoardProps) {
   return (
     <Container>
       <ModalView>
-        <ModalTitle>Entrar</ModalTitle>
+        <ModalTitle>Cadastrar</ModalTitle>
         <Input
-          placeholder="Login ou e-mail..."
+          placeholder="Login"
+          placeholderTextColor="#5429cc"
+          autoCapitalize="none"
+        />
+        <Input
+          placeholder="e-mail..."
           placeholderTextColor="#5429cc"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -35,20 +39,20 @@ export function LoginBoard({ onLogin, navigation }: LoginBoardProps) {
           secureTextEntry={true}
           autoCapitalize="none"
         />
-        <BtnCadastrar
-          hitSlop={0}
+        <BtnLogin
           onPress={() => {
-            navigation.navigation.navigate("signupPage");
+            navigation.navigation.navigate("loginPage");
           }}
         >
-          <BtnCadastrarTitulo>
-            Não possui conta? Cadastre-se!
-          </BtnCadastrarTitulo>
-        </BtnCadastrar>
-        <BtnLogin onPress={onLogin}>
-          <BtnLoginTitulo>Entrar</BtnLoginTitulo>
+          <BtnLoginTitulo>Já possui uma conta? Entrar!</BtnLoginTitulo>
         </BtnLogin>
-        <Text>Você pode autenticar usando a digital</Text>
+        <BtnCadastrar
+          onPress={() => {
+            navigation.navigation.navigate("loginPage");
+          }}
+        >
+          <BtnCadastrarTitulo>Cadastrar</BtnCadastrarTitulo>
+        </BtnCadastrar>
       </ModalView>
     </Container>
   );
