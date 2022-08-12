@@ -17,6 +17,7 @@ export const Card = styled.View`
   border-radius: 5px;
   width: 330px;
   align-items: center;
+  margin: 20px;
 `;
 
 export const Conteudo = styled.View`
@@ -66,4 +67,8 @@ export const Data = styled.Text`
   font-size: 14px;
   line-height: 21px;
   color: #969CB3;
+`;
+
+export const Scroll = styled.ScrollView`
+height: 360px;
 `;

@@ -11,6 +11,7 @@ import {
   Data,
   Footer,
   Header,
+  Scroll,
   Titulo,
   Topo,
   Valor,
@@ -41,7 +42,7 @@ export function TransactionsTable() {
         <Text>Listagem</Text>
         <Text>Quantidade</Text>
       </Topo>
-      <ScrollView>
+      <Scroll >
         <Card>
           <Conteudo>
             <Header>
@@ -57,7 +58,7 @@ export function TransactionsTable() {
             </Footer>
           </Conteudo>
         </Card>
-      </ScrollView >
+      </Scroll >
     </Container >
 
   );
