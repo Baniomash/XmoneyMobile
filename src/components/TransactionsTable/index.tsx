@@ -16,48 +16,37 @@ import {
   Topo,
   Valor,
 } from "./styles";
-
-{/* <Card>
-<Conteudo>
-{transactions.map(transaction => (
-  <Header>
-    <Cabeçalho>
-      <Titulo>{transaction.title}</Titulo>
-      <Valor className={transaction.type}>{transaction.amount}</Valor>
-    </Cabeçalho>
-    <Banco>{transaction.bank}</Banco>
-  </Header>
-  <Footer>
-    <Categoria>{transaction.category}</Categoria>
-    <Data>{transaction.createdAt}</Data>
-  </Footer>
-  ))}
-</Conteudo>
-</Card> */}
-
 export function TransactionsTable() {
+
+  const transactions = [
+    { id: 1, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+    { id: 2, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+    { id: 3, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+    { id: 4, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+  ];
   return (
     <Container>
       <Topo>
         <Text>Listagem</Text>
-        <Text>Quantidade</Text>
+        <Text>Quantidade: {transactions.length}</Text>
       </Topo>
       <Scroll >
-        <Card>
-          <Conteudo>
-            <Header>
-              <Cabeçalho>
-                <Titulo>Desenvolvimento de Site</Titulo>
-                <Valor>R$15.000</Valor>
-              </Cabeçalho>
-              <Banco>Itaú</Banco>
-            </Header>
-            <Footer>
-              <Categoria>Salário</Categoria>
-              <Data>19/12/2020</Data>
-            </Footer>
-          </Conteudo>
-        </Card>
+        {transactions.map(transaction => (
+          <Card key={transaction.id}>
+            <Conteudo>
+              <Header>
+                <Cabeçalho>
+                  <Titulo>{transaction.title}</Titulo>
+                  <Valor style={{ color: transaction.type ? "green" : "red" }}>R$ {transaction.amount}</Valor>
+                </Cabeçalho>
+                <Banco>{transaction.bank}</Banco>
+              </Header>
+              <Footer>
+                <Categoria>{transaction.category}</Categoria>
+                <Data>{transaction.createdAt}</Data>
+              </Footer>
+            </Conteudo>
+          </Card>))}
       </Scroll >
     </Container >
 
