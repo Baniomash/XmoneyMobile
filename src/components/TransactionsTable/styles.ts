@@ -9,7 +9,7 @@ export const Topo = styled.View`
   width: 327px;
   flex-direction: row;
   justify-content: space-between;
-  padding: 16px;
+  padding: 8px;
 `;
 
 export const Card = styled.View`
@@ -17,7 +17,7 @@ export const Card = styled.View`
   border-radius: 5px;
   width: 330px;
   align-items: center;
-  margin: 20px;
+  margin: 8px;
 `;
 
 export const Conteudo = styled.View`
@@ -70,5 +70,17 @@ export const Data = styled.Text`
 `;
 
 export const Scroll = styled.ScrollView`
-height: 360px;
+  height: 310px;
+`;
+
+export const Filtros = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const FiltrosWrapper = styled.View`
+  width: 30%;
+  padding: 4px;
 `;

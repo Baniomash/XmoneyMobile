@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { useTransactions } from "../../hooks/useTransactions";
 import RNPickerSelect from "react-native-picker-select";
 import {
@@ -10,6 +10,8 @@ import {
   Container,
   Conteudo,
   Data,
+  Filtros,
+  FiltrosWrapper,
   Footer,
   Header,
   Scroll,
@@ -63,54 +65,58 @@ export function TransactionsTable() {
         <Text>Listagem</Text>
         <Text>Quantidade: {cardsMostrar.length}</Text>
       </Topo>
-      <RNPickerSelect
-        placeholder={{ label: "Selecione a categoria" }}
-        style={{ inputAndroid: { backgroundColor: "#e7e9ee" } }}
-        onValueChange={(value) => setCategoria(value)}
-        value={categoria}
-        items={[
-          { label: "Moradia", value: "Moradia" },
-          { label: "Trabalho", value: "Trabalho" },
-          { label: "Diversão", value: "Diversão" },
-          { label: "Supermecado", value: "Supermecado" },
-          { label: "Saúde", value: "Saúde" },
-        ]}
-      />
-      <RNPickerSelect
-        placeholder={{ label: "Selecione banco utilizado" }}
-        style={{
-          inputAndroid: {
-            backgroundColor: "#e7e9ee",
-            marginTop: 8,
-            marginBottom: 8,
-          },
-        }}
-        onValueChange={(value) => setBanco(value)}
-        value={banco}
-        items={[
-          { label: "À vista", value: "À vista" },
-          { label: "Itaú", value: "Itaú" },
-          { label: "NUBank", value: "NUBank" },
-          { label: "Santander", value: "Santander" },
-          { label: "Caixa", value: "Caixa" },
-        ]}
-      />
-      <RNPickerSelect
-        placeholder={{ label: "Ambos" }}
-        style={{
-          inputAndroid: {
-            backgroundColor: "#e7e9ee",
-            marginTop: 8,
-            marginBottom: 8,
-          },
-        }}
-        onValueChange={(value) => setTipo(value)}
-        value={tipo}
-        items={[
-          { label: "Entrada", value: true },
-          { label: "Saida", value: false },
-        ]}
-      />
+      <Filtros>
+        <FiltrosWrapper>
+          <RNPickerSelect
+            placeholder={{ label: "Categorias" }}
+            style={{ inputAndroid: { backgroundColor: "#e7e9ee" } }}
+            onValueChange={(value) => setCategoria(value)}
+            value={categoria}
+            items={[
+              { label: "Moradia", value: "Moradia" },
+              { label: "Trabalho", value: "Trabalho" },
+              { label: "Diversão", value: "Diversão" },
+              { label: "Supermecado", value: "Supermecado" },
+              { label: "Saúde", value: "Saúde" },
+            ]}
+          />
+        </FiltrosWrapper>
+        <FiltrosWrapper>
+          <RNPickerSelect
+            placeholder={{ label: "Bancos" }}
+            style={{
+              inputAndroid: {
+                backgroundColor: "#e7e9ee",
+              },
+            }}
+            onValueChange={(value) => setBanco(value)}
+            value={banco}
+            items={[
+              { label: "À vista", value: "À vista" },
+              { label: "Itaú", value: "Itaú" },
+              { label: "NUBank", value: "NUBank" },
+              { label: "Santander", value: "Santander" },
+              { label: "Caixa", value: "Caixa" },
+            ]}
+          />
+        </FiltrosWrapper>
+        <FiltrosWrapper>
+          <RNPickerSelect
+            placeholder={{ label: "Ambos" }}
+            style={{
+              inputAndroid: {
+                backgroundColor: "#e7e9ee",
+              },
+            }}
+            onValueChange={(value) => setTipo(value)}
+            value={tipo}
+            items={[
+              { label: "Entrada", value: true },
+              { label: "Saida", value: false },
+            ]}
+          />
+        </FiltrosWrapper>
+      </Filtros>
       {transactions &&
         <Scroll >
           {cardsMostrar.map(transaction => (
