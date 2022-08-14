@@ -19,11 +19,6 @@ import {
 } from "./styles";
 export function TransactionsTable() {
   // const { transactions } = useTransactions()
-
-  const [categoria, setCategoria] = useState(undefined);
-  const [banco, setBanco] = useState(undefined);
-  const [tipo, setTipo] = useState(undefined);
-
   const transactions = [
     { id: 1, title: "Conta de Luz", type: true, amount: 100, bank: "Itaú", category: "Moradia", createdAt: "2020-01-01" },
     { id: 2, title: "Conta de Luz", type: false, amount: 100, bank: "NUBank", category: "Trabalho", createdAt: "2020-01-01" },
@@ -32,19 +27,41 @@ export function TransactionsTable() {
     { id: 5, title: "Conta de Luz", type: true, amount: 100, bank: "À vista", category: "Saúde", createdAt: "2020-01-01" },
   ];
 
-  let catFilt = transactions.filter(function (obj) { if (categoria != undefined) return obj.category == categoria; else return obj; });
-  let bankFilt = transactions.filter(function (obj) { if (banco != undefined) return obj.bank == banco; else return obj; });
-  let typeFilt = transactions.filter(function (obj) { if (tipo != undefined) return obj.type == tipo; else return obj; });
+  let cardsMostrar;
+  const [categoria, setCategoria] = useState("");
+  const [banco, setBanco] = useState("");
+  const [tipo, setTipo] = useState(null);
 
-  // const transactionsFiltradas = [];
+  let transactionsFiltradas: { id: number; title: string; type: boolean; amount: number; bank: string; category: string; createdAt: string; }[] = [];
 
-  // transactionsFiltradas.push(catFilt, bankFilt, typeFilt);
+  let catFilt = transactions.filter(
+    function (obj) {
+      return obj.category == categoria;
+    });
+  let bankFilt = transactions.filter(
+    function (obj) {
+      return obj.bank == banco;
+    });
+  let typeFilt = transactions.filter(
+    function (obj) {
+      return obj.type == tipo;
+    });
+
+  catFilt.forEach((categ) => { transactionsFiltradas.push(categ); });
+  bankFilt.forEach((ban) => { transactionsFiltradas.push(ban); });
+  typeFilt.forEach((typ) => { transactionsFiltradas.push(typ); });
+
+  if (transactionsFiltradas.length === 0) {
+    cardsMostrar = transactions;
+  } else {
+    cardsMostrar = transactionsFiltradas;
+  }
 
   return (
     <Container>
       <Topo>
         <Text>Listagem</Text>
-        <Text>Quantidade:</Text>
+        <Text>Quantidade: {cardsMostrar.length}</Text>
       </Topo>
       <RNPickerSelect
         placeholder={{ label: "Selecione a categoria" }}
@@ -79,7 +96,7 @@ export function TransactionsTable() {
         ]}
       />
       <RNPickerSelect
-        placeholder={{ label: "Selecione banco utilizado" }}
+        placeholder={{ label: "Ambos" }}
         style={{
           inputAndroid: {
             backgroundColor: "#e7e9ee",
@@ -96,7 +113,7 @@ export function TransactionsTable() {
       />
       {transactions &&
         <Scroll >
-          {catFilt.map(transaction => (
+          {cardsMostrar.map(transaction => (
             <Card key={transaction.id}>
               <Conteudo>
                 <Header>
