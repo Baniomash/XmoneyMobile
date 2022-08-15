@@ -21,6 +21,12 @@ export const LogoWrapper = styled.View`
   align-items: center;
 `;
 
+export const ButtonWrapper = styled.View`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const LogoText = styled.Text`
   margin-left: 10px;
   color: white;
