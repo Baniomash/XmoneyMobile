@@ -9,11 +9,11 @@ import {
 
 const { api } = require("../services/api");
 
-interface Transaction {
+export interface Transaction {
   id: number;
   title: string;
-  amount: string;
-  type: string;
+  amount: number;
+  type: boolean;
   category: string;
   bank: string;
   createdAt: string;

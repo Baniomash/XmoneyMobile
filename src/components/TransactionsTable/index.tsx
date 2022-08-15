@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native";
-import { useTransactions } from "../../hooks/useTransactions";
+import { useTransactions, Transaction } from "../../hooks/useTransactions";
 import RNPickerSelect from "react-native-picker-select";
 import {
   Banco,
@@ -33,7 +33,7 @@ export function TransactionsTable() {
   const [banco, setBanco] = useState(undefined);
   const [tipo, setTipo] = useState(null);
 
-  let transactionsFiltradas: { id: number; title: string; type: boolean; amount: number; bank: string; category: string; createdAt: string; }[] = [];
+  let transactionsFiltradas: Transaction[] = [];
 
   let catFilt = transactions.filter(
     function (obj) {
