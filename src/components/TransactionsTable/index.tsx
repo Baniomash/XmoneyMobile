@@ -16,7 +16,6 @@ import {
   Header,
   Scroll,
   Titulo,
-  Topo,
   Valor,
 } from "./styles";
 export function TransactionsTable() {
@@ -30,30 +29,40 @@ export function TransactionsTable() {
   ];
 
   let cardsMostrar;
-  const [categoria, setCategoria] = useState("");
-  const [banco, setBanco] = useState("");
+  const [categoria, setCategoria] = useState(undefined);
+  const [banco, setBanco] = useState(undefined);
   const [tipo, setTipo] = useState(null);
 
   let transactionsFiltradas: { id: number; title: string; type: boolean; amount: number; bank: string; category: string; createdAt: string; }[] = [];
 
   let catFilt = transactions.filter(
     function (obj) {
-      return obj.category == categoria;
-    });
-  let bankFilt = transactions.filter(
-    function (obj) {
-      return obj.bank == banco;
-    });
-  let typeFilt = transactions.filter(
-    function (obj) {
-      return obj.type == tipo;
+      if (categoria != undefined && banco == undefined && tipo == null) {
+        return obj.category == categoria;
+      } //apenas categoria preenchida
+      else if (categoria == undefined && banco != undefined && tipo == null) {
+        return obj.bank == banco;
+      } //apenas banco preenchido
+      else if (categoria == undefined && banco == undefined && tipo != null) {
+        return obj.type == tipo;
+      } //apenas tipo preenchido
+      else if (categoria && banco != undefined && tipo == null) {
+        return obj.category == categoria && obj.bank == banco;
+      } //apenas categoria e banco preenchidos
+      else if (categoria != undefined && banco == undefined && tipo != null) {
+        return obj.category == categoria && obj.type == tipo;
+      } //apenas categoria e tipo preenchidos
+      else if (categoria == undefined && banco != undefined && tipo != null) {
+        return obj.bank == banco && obj.type == tipo;
+      } //apenas banco e tipo preenchidos
+      else if (categoria && banco != undefined && tipo != null) {
+        return obj.category == categoria && obj.bank == banco && obj.type == tipo;
+      } //os 3 campos estão preenchidos
     });
 
   catFilt.forEach((categ) => { transactionsFiltradas.push(categ); });
-  bankFilt.forEach((ban) => { transactionsFiltradas.push(ban); });
-  typeFilt.forEach((typ) => { transactionsFiltradas.push(typ); });
 
-  if (transactionsFiltradas.length === 0) {
+  if (transactionsFiltradas.length === 0 && categoria == undefined && banco == undefined && tipo == null) {
     cardsMostrar = transactions;
   } else {
     cardsMostrar = transactionsFiltradas;
@@ -61,12 +70,9 @@ export function TransactionsTable() {
 
   return (
     <Container>
-      <Topo>
-        <Text>Listagem</Text>
-        <Text>Quantidade: {cardsMostrar.length}</Text>
-      </Topo>
       <Filtros>
         <FiltrosWrapper>
+          <Text>Filtro Categoria:</Text>
           <RNPickerSelect
             placeholder={{ label: "Categorias" }}
             style={{ inputAndroid: { backgroundColor: "#e7e9ee" } }}
@@ -82,6 +88,7 @@ export function TransactionsTable() {
           />
         </FiltrosWrapper>
         <FiltrosWrapper>
+          <Text>Filtro Banco:</Text>
           <RNPickerSelect
             placeholder={{ label: "Bancos" }}
             style={{
@@ -101,8 +108,9 @@ export function TransactionsTable() {
           />
         </FiltrosWrapper>
         <FiltrosWrapper>
+          <Text>Filtro Tipo:</Text>
           <RNPickerSelect
-            placeholder={{ label: "Ambos" }}
+            placeholder={{ label: "Tipo" }}
             style={{
               inputAndroid: {
                 backgroundColor: "#e7e9ee",

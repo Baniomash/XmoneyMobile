@@ -5,13 +5,6 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const Topo = styled.View`
-  width: 327px;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 8px;
-`;
-
 export const Card = styled.View`
   background: #ffffff;
   border-radius: 5px;
@@ -83,4 +76,5 @@ export const Filtros = styled.View`
 export const FiltrosWrapper = styled.View`
   width: 30%;
   padding: 4px;
+  align-items: center;
 `;
