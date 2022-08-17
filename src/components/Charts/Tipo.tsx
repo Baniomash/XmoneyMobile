@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 
-export class ChartBank extends PureComponent {
+export class ChartType extends PureComponent {
     render() {
         const transactions = [
             { id: 1, title: "Conta de Luz", type: true, amount: 100, bank: "Itaú", category: "Moradia", createdAt: "2020-01-01" },
@@ -12,41 +12,34 @@ export class ChartBank extends PureComponent {
             { id: 5, title: "Conta de Luz", type: true, amount: 100, bank: "À vista", category: "Saúde", createdAt: "2020-01-01" },
         ];
 
-        let totalBanco: number[] = [];
+        const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
+
+        let totalTipo: number[] = [];
         const summary = transactions.reduce(
             (acc, transaction) => {
-                if (transaction.bank == "Itaú") {
-                    acc.itau += transaction.amount;
-                } else if (transaction.bank == "NUBank") {
-                    acc.nubank += transaction.amount;
-                } else if (transaction.bank == "Santander") {
-                    acc.santander += transaction.amount;
-                } else if (transaction.bank == "Caixa") {
-                    acc.caixa += transaction.amount;
-                } else if (transaction.bank == "À vista") {
-                    acc.avista += transaction.amount;
+                if (transaction.type == true) {
+                    acc.entrada += transaction.amount;
+                } else if (transaction.type == false) {
+                    acc.saida += transaction.amount;
                 }
                 return acc;
             },
             {
-                itau: 0,
-                nubank: 0,
-                santander: 0,
-                caixa: 0,
-                avista: 0
+                entrada: 0,
+                saida: 0,
             }
         );
-        totalBanco.push(summary.itau, summary.nubank, summary.santander, summary.caixa, summary.avista);
+        totalTipo.push(summary.entrada, summary.saida);
 
-        const categoryData = totalBanco
+        const categoryData = totalTipo
             .filter((value) => value > 0)
             .map((value, index) => ({
                 value,
                 svg: {
-                    fill: ['#e46c0a', '#9c44dc', '#ec0000', '#1c60ab', '#12A454'][index],
-                    onPress: () => console.log(`${transactions[index].bank}`),
+                    fill: ['#12A454', '#E52E4D'][index],
+                    onPress: () => console.log(`${transactions[index].type ? 'Entrada' : 'Saída'}`),
                 },
-                key: `${totalBanco[index]}`,
+                key: `${totalTipo[index]}`,
             }));
 
         const Label = ({ slices }) => {
@@ -63,7 +56,7 @@ export class ChartBank extends PureComponent {
                             alignmentBaseline={'text-bottom'}
                             fontSize={15}
                         >
-                            {transactions[index].bank}
+                            {transactions[index].type ? 'Entradas' : 'Saídas'}
 
                         </Text>
                         <Text
