@@ -3,14 +3,14 @@ import { Container, Header, Strong, Card, CardTotal } from "./styles";
 import { useTransactions } from "../../hooks/useTransactions";
 
 export function Cards() {
-  // const { transactions } = useTransactions();
+  const { transactions } = useTransactions();
 
-  const transactions = [
-    { id: 1, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
-    { id: 2, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
-    { id: 3, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
-    { id: 4, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
-  ];
+  // const transactions = [
+  //   { id: 1, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+  //   { id: 2, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+  //   { id: 3, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+  //   { id: 4, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+  // ];
 
   const summary = transactions.reduce(
     (acc, transaction) => {

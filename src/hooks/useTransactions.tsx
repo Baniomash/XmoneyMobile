@@ -40,7 +40,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   useEffect(() => {
     api
       .get("Cards")
-      .then((response: { data: { transactions: SetStateAction<Transaction[]>; }; }) => setTransactions(response.data.transactions));
+      .then((response: { data: SetStateAction<Transaction[]>; }) => setTransactions(response.data));
   }, []);
 
   async function createTrasaction(transactionInput: TransactionInput) {

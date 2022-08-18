@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
+import { useTransactions } from '../../hooks/useTransactions';
 
 export class ChartBank extends PureComponent {
     render() {
@@ -11,6 +12,8 @@ export class ChartBank extends PureComponent {
             { id: 4, title: "Conta de Luz", type: false, amount: 100, bank: "Caixa", category: "Supermecado", createdAt: "2020-01-01" },
             { id: 5, title: "Conta de Luz", type: true, amount: 100, bank: "À vista", category: "Saúde", createdAt: "2020-01-01" },
         ];
+        // const { transactions } = useTransactions();
+
 
         let totalBanco: number[] = [];
         const summary = transactions.reduce(

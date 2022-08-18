@@ -33,22 +33,23 @@ export default function App() {
 
   if (isAuthent) {
     return (
-      <NavigationContainer>
-        <AppStack.Navigator
-          initialRouteName="transactionsPage"
-          screenOptions={{ headerShown: false }}
-        >
-          <AppStack.Screen
-            name="transactionsPage"
-            component={TransactionsPage}
-          />
-          <AppStack.Screen name="chartsPage" component={ChartsPage} />
-        </AppStack.Navigator>
-      </NavigationContainer>
+      <TransactionsProvider>
+        <NavigationContainer>
+          <AppStack.Navigator
+            initialRouteName="transactionsPage"
+            screenOptions={{ headerShown: false }}
+          >
+            <AppStack.Screen
+              name="transactionsPage"
+              component={TransactionsPage}
+            />
+            <AppStack.Screen name="chartsPage" component={ChartsPage} />
+          </AppStack.Navigator>
+        </NavigationContainer>
+      </TransactionsProvider>
     );
   }
   return (
-    <TransactionsProvider>
       <MyContext.Provider value={myContext}>
         <NavigationContainer>
           <AuthStack.Navigator
@@ -60,6 +61,5 @@ export default function App() {
           </AuthStack.Navigator>
         </NavigationContainer>
       </MyContext.Provider>
-    </TransactionsProvider>
   );
 }
