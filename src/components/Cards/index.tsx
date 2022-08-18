@@ -4,24 +4,31 @@ import { useTransactions } from "../../hooks/useTransactions";
 
 export function Cards() {
   // const { transactions } = useTransactions();
-  // const summary = transactions.reduce(
-  //   (acc, transaction) => {
-  //     if (transaction.type == "deposit") {
-  //       acc.deposits += transaction.amount;
-  //       acc.total += transaction.amount;
-  //     } else {
-  //       acc.withdraws += transaction.amount;
-  //       acc.total -= transaction.amount;
-  //     }
 
-  //     return acc;
-  //   },
-  //   {
-  //     deposits: 0,
-  //     withdraws: 0,
-  //     total: 0,
-  //   }
-  // );
+  const transactions = [
+    { id: 1, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+    { id: 2, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+    { id: 3, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+    { id: 4, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
+  ];
+
+  const summary = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.type == true) {
+        acc.deposits += transaction.amount;
+        acc.total += transaction.amount;
+      } else {
+        acc.withdraws += transaction.amount;
+        acc.total -= transaction.amount;
+      }
+      return acc;
+    },
+    {
+      deposits: 0,
+      withdraws: 0,
+      total: 0,
+    }
+  );
 
   return (
     <Container>
@@ -31,7 +38,7 @@ export function Cards() {
             <Text>Entradas</Text>
             <Image source={require("./../../../assets/Entradas.png")} />
           </Header>
-          <Strong>R$2000,00</Strong>
+          <Strong>R$ {summary.deposits}</Strong>
         </Card>
 
         <Card>
@@ -39,7 +46,7 @@ export function Cards() {
             <Text>Saídas</Text>
             <Image source={require("./../../../assets/Saidas.png")} />
           </Header>
-          <Strong>R$1000,00</Strong>
+          <Strong>R$ {summary.withdraws}</Strong>
         </Card>
 
         <CardTotal>
@@ -47,7 +54,7 @@ export function Cards() {
             <Text>Total</Text>
             <Image source={require("./../../../assets/Total.png")} />
           </Header>
-          <Strong>R$1000,00</Strong>
+          <Strong>R$ {summary.total}</Strong>
         </CardTotal>
       </ScrollView>
     </Container>

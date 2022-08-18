@@ -13,6 +13,14 @@ export const ModalView = styled.View`
   background-color: #f9f9f9;
 `;
 
+export const Header = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+`;
+
 export const Input = styled.TextInput`
   background: #e7e9ee;
   border: 1px solid #d7d7d7;
@@ -26,6 +34,13 @@ export const Input = styled.TextInput`
 export const BtnModal = styled.Pressable`
   background-color: #33cc95;
   border-radius: 5px;
+`;
+
+export const BtnClose = styled.Pressable`
+background-color: #f9f9f9;
+border-radius: 5px;
+align-items: center;
+width: 40px;
 `;
 
 export const ModalTitle = styled.Text`

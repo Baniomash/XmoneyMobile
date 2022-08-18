@@ -1,12 +1,14 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Modal, Text } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { useTransactions } from "../../hooks/useTransactions";
 
 import {
+  BtnClose,
   BtnModal,
   BtnTitulo,
   CenteredView,
+  Header,
   Icon,
   Input,
   ModalTitle,
@@ -27,10 +29,15 @@ export function NewTransactionModal({
   const { createTrasaction } = useTransactions();
 
   const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState("Gasto Padrão");
-  const [type, setType] = useState("Depósito");
+  const [type, setType] = useState(true);
   const [bank, setBank] = useState("Padrão");
+  const [text, setText] = useState("");
+
+  useEffect(()=>{
+    setAmount(parseFloat(text))
+  }, [text])
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
@@ -44,9 +51,9 @@ export function NewTransactionModal({
     });
 
     setTitle("");
-    setAmount("0");
+    setAmount(0);
     setCategory("");
-    setType("Depósito");
+    setType(true);
     setBank("");
     onRequestClose();
   }
@@ -61,26 +68,31 @@ export function NewTransactionModal({
       >
         <CenteredView>
           <ModalView>
-            <ModalTitle>Cadastrar transação</ModalTitle>
+            <Header>
+              <ModalTitle>Cadastrar transação</ModalTitle>
+              <BtnClose onPress={onRequestClose}><Text style={{fontSize: 30}}>x</Text></BtnClose>
+            </Header>
             <Input onChangeText={setTitle} value={title} placeholder="Nome" />
             <Input
-              onChangeText={setAmount}
-              value={amount}
+              onChangeText={setText}
+              value={text}
               placeholder="Preço"
               keyboardType="numeric"
             />
             <TransactioTypeContainer>
               <RadioBox
+              style={{ backgroundColor: type ? "#bcffb5" : "#FFFFFF" }}
                 onPress={() => {
-                  setType("Depósito");
+                  setType(true);
                 }}
               >
                 <Icon source={require("./../../../assets/Entradas.png")} />
                 <Text>Entrada</Text>
               </RadioBox>
               <RadioBox
+                style={{ backgroundColor: type ? "#FFFFFF" : "#fb9595" }}
                 onPress={() => {
-                  setType("Retirada");
+                  setType(false);
                 }}
               >
                 <Icon source={require("./../../../assets/Saidas.png")} />
@@ -104,7 +116,7 @@ export function NewTransactionModal({
               placeholder={{ label: "Selecione banco utilizado" }}
               style={{
                 inputAndroid: {
-                  backgroundColor: "#e7e9ee",
+                  backgroundColor: "#ffffff",
                   marginTop: 8,
                   marginBottom: 8,
                 },

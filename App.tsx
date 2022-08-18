@@ -1,12 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
+import { TransactionsProvider } from "./src/hooks/useTransactions";
 import { ChartsPage } from "./src/screens/ChartsPage";
 import { LoginPage } from "./src/screens/LoginPage";
 import { SignupPage } from "./src/screens/SignupPage";
 import { TransactionsPage } from "./src/screens/TransactionsPage";
 
-export const MyContext = React.createContext({ onLogin: () => {} });
+export const MyContext = React.createContext({ onLogin: () => { } });
 
 export type AuthStackParams = {
   loginPage: any;
@@ -47,16 +48,18 @@ export default function App() {
     );
   }
   return (
-    <MyContext.Provider value={myContext}>
-      <NavigationContainer>
-        <AuthStack.Navigator
-          initialRouteName="loginPage"
-          screenOptions={{ headerShown: false }}
-        >
-          <AuthStack.Screen name="loginPage" component={LoginPage} />
-          <AuthStack.Screen name="signupPage" component={SignupPage} />
-        </AuthStack.Navigator>
-      </NavigationContainer>
-    </MyContext.Provider>
+    <TransactionsProvider>
+      <MyContext.Provider value={myContext}>
+        <NavigationContainer>
+          <AuthStack.Navigator
+            initialRouteName="loginPage"
+            screenOptions={{ headerShown: false }}
+          >
+            <AuthStack.Screen name="loginPage" component={LoginPage} />
+            <AuthStack.Screen name="signupPage" component={SignupPage} />
+          </AuthStack.Navigator>
+        </NavigationContainer>
+      </MyContext.Provider>
+    </TransactionsProvider>
   );
 }
