@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import moment from "moment";
 
 const { api } = require("../services/api");
 
@@ -46,9 +47,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   async function createTrasaction(transactionInput: TransactionInput) {
     const response = await api.post("/Cards", {
       ...transactionInput,
-      createdAt: new Date(),
+      createdAt: moment(new Date).format("DD/MM/YYYY hh:mm a"),
     });
-    const transaction  = response.data;
+    const transaction = response.data;
     setTransactions([...transactions, transaction]);
   }
 
