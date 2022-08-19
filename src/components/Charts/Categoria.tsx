@@ -25,6 +25,8 @@ export class ChartCategory extends PureComponent {
                     acc.supermecado += transaction.amount;
                 } else if (transaction.category == "Saúde") {
                     acc.saude += transaction.amount;
+                }else if (transaction.category == "Padrão") {
+                    acc.padrao += transaction.amount;
                 }
                 return acc;
             },
@@ -33,10 +35,11 @@ export class ChartCategory extends PureComponent {
                 trabalho: 0,
                 diversao: 0,
                 supermecado: 0,
-                saude: 0
+                saude: 0,
+                padrao: 0,
             }
         );
-        totalCategoria.push(summary.moradia, summary.trabalho, summary.diversao, summary.supermecado, summary.saude);
+        totalCategoria.push(summary.moradia, summary.trabalho, summary.diversao, summary.supermecado, summary.saude, summary.padrao);
 
         const bankData = totalCategoria
             .filter((value) => value > 0)
@@ -49,7 +52,7 @@ export class ChartCategory extends PureComponent {
                 key: `${totalCategoria[index]}`,
             }));
 
-        const Label = ({ slices }) => {
+        const Label = ({ slices }: any) => {
             return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
                 const { pieCentroid, data } = slice;
                 return (

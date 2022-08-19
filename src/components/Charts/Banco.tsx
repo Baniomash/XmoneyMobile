@@ -52,7 +52,7 @@ export class ChartBank extends PureComponent {
                 key: `${totalBanco[index]}`,
             }));
 
-        const Label = ({ slices }) => {
+        const Label = ({ slices }: any) => {
             return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
                 const { pieCentroid, data } = slice;
                 return (

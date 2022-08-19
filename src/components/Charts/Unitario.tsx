@@ -28,7 +28,7 @@ export class ChartUnit extends PureComponent {
                 },
                 key: `${transactions[index].id}`,
             }));
-        const Label = ({ slices }) => {
+        const Label = ({ slices }:any) => {
             return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
                 const { pieCentroid, data } = slice;
                 return (

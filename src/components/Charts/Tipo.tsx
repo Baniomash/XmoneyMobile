@@ -12,8 +12,6 @@ export class ChartType extends PureComponent {
             { id: 5, title: "Conta de Luz", type: true, amount: 100, bank: "À vista", category: "Saúde", createdAt: "2020-01-01" },
         ];
 
-        const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
-
         let totalTipo: number[] = [];
         const summary = transactions.reduce(
             (acc, transaction) => {
@@ -42,7 +40,7 @@ export class ChartType extends PureComponent {
                 key: `${totalTipo[index]}`,
             }));
 
-        const Label = ({ slices }) => {
+        const Label = ({ slices }: any) => {
             return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
                 const { pieCentroid, data } = slice;
                 return (

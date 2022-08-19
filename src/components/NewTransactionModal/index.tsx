@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { Modal, Text } from "react-native";
+import { Alert, Modal, Text } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { useTransactions } from "../../hooks/useTransactions";
 
@@ -30,18 +30,20 @@ export function NewTransactionModal({
 
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState("Gasto Padrão");
+  const [category, setCategory] = useState("");
   const [type, setType] = useState(true);
-  const [bank, setBank] = useState("Padrão");
+  const [bank, setBank] = useState("");
   const [text, setText] = useState("");
 
   useEffect(()=>{
     setAmount(parseFloat(text))
   }, [text])
 
-  async function handleCreateNewTransaction(event: FormEvent) {
-    event.preventDefault();
-
+  
+  async function handleCreateNewTransaction() {
+    if (title == "" || text == "" || category == "" || bank == "") {
+      Alert.alert("Preencha todos os campos!!!")
+    } else {
     await createTrasaction({
       title,
       amount,
@@ -57,6 +59,7 @@ export function NewTransactionModal({
     setBank("");
     onRequestClose();
   }
+}
 
   return (
     <CenteredView>
@@ -105,6 +108,7 @@ export function NewTransactionModal({
               onValueChange={(value) => setCategory(value)}
               value={category}
               items={[
+                { label: "Padrão", value: "Padrão" },
                 { label: "Moradia", value: "Moradia" },
                 { label: "Trabalho", value: "Trabalho" },
                 { label: "Diversão", value: "Diversão" },
@@ -116,7 +120,7 @@ export function NewTransactionModal({
               placeholder={{ label: "Selecione banco utilizado" }}
               style={{
                 inputAndroid: {
-                  backgroundColor: "#ffffff",
+                  backgroundColor: "#e7e9ee",
                   marginTop: 8,
                   marginBottom: 8,
                 },
@@ -131,7 +135,7 @@ export function NewTransactionModal({
                 { label: "Caixa", value: "Caixa" },
               ]}
             />
-            <BtnModal onPress={onRequestClose}>
+            <BtnModal onPress={handleCreateNewTransaction}>
               <BtnTitulo>Cadastrar</BtnTitulo>
             </BtnModal>
           </ModalView>

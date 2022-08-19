@@ -12,7 +12,6 @@ export const Card = styled.View`
   height: 200px;
 `;
 export const CardTotal = styled.View`
-  background-color: #33cc95;
   padding: 24px 32px;
   border-radius: 4px;
   margin: 0 20px;

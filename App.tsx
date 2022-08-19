@@ -1,13 +1,15 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
+import { Use } from "react-native-svg";
+import { UsuariosProvider } from "./src/hooks/auth";
 import { TransactionsProvider } from "./src/hooks/useTransactions";
 import { ChartsPage } from "./src/screens/ChartsPage";
 import { LoginPage } from "./src/screens/LoginPage";
 import { SignupPage } from "./src/screens/SignupPage";
 import { TransactionsPage } from "./src/screens/TransactionsPage";
 
-export const MyContext = React.createContext({ onLogin: () => { } });
+export const LoginContext = React.createContext({ onLogin: () => { } });
 
 export type AuthStackParams = {
   loginPage: any;
@@ -50,7 +52,8 @@ export default function App() {
     );
   }
   return (
-      <MyContext.Provider value={myContext}>
+    <UsuariosProvider>
+      <LoginContext.Provider value={myContext}>
         <NavigationContainer>
           <AuthStack.Navigator
             initialRouteName="loginPage"
@@ -60,6 +63,7 @@ export default function App() {
             <AuthStack.Screen name="signupPage" component={SignupPage} />
           </AuthStack.Navigator>
         </NavigationContainer>
-      </MyContext.Provider>
+      </LoginContext.Provider>
+    </UsuariosProvider>
   );
 }

@@ -20,18 +20,6 @@ import {
 } from "./styles";
 export function TransactionsTable() {
   let { transactions } = useTransactions();
-  console.log(transactions);
-  
-  transactions = transactions || []
-  
-  
-  // const transactions = [
-  //   { id: 1, title: "Conta de Luz", type: true, amount: 100, bank: "Itaú", category: "Moradia", createdAt: "2020-01-01" },
-  //   { id: 2, title: "Conta de Luz", type: false, amount: 100, bank: "NUBank", category: "Trabalho", createdAt: "2020-01-01" },
-  //   { id: 3, title: "Conta de Luz", type: true, amount: 100, bank: "Santander", category: "Diversão", createdAt: "2020-01-01" },
-  //   { id: 4, title: "Conta de Luz", type: false, amount: 100, bank: "Caixa", category: "Supermecado", createdAt: "2020-01-01" },
-  //   { id: 5, title: "Conta de Luz", type: true, amount: 100, bank: "À vista", category: "Saúde", createdAt: "2020-01-01" },
-  // ];
 
   let cardsMostrar;
   const [categoria, setCategoria] = useState(undefined);
@@ -84,6 +72,7 @@ export function TransactionsTable() {
             onValueChange={(value) => setCategoria(value)}
             value={categoria}
             items={[
+              { label: "Padrão", value: "Padrão" },
               { label: "Moradia", value: "Moradia" },
               { label: "Trabalho", value: "Trabalho" },
               { label: "Diversão", value: "Diversão" },

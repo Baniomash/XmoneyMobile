@@ -5,13 +5,6 @@ import { useTransactions } from "../../hooks/useTransactions";
 export function Cards() {
   const { transactions } = useTransactions();
 
-  // const transactions = [
-  //   { id: 1, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
-  //   { id: 2, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
-  //   { id: 3, title: "Conta de Luz", type: true, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
-  //   { id: 4, title: "Conta de Luz", type: false, amount: 100, bank: "Itau", category: "Energia", createdAt: "2020-01-01" },
-  // ];
-
   const summary = transactions.reduce(
     (acc, transaction) => {
       if (transaction.type == true) {
@@ -33,6 +26,14 @@ export function Cards() {
   return (
     <Container>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+      <CardTotal style={summary.total < 0 ? {backgroundColor: "#df0000"}:{backgroundColor: "#33cc95"} }>
+          <Header>
+            <Text>Total</Text>
+            <Image source={require("./../../../assets/Total.png")} />
+          </Header>
+          <Strong>R$ {summary.total}</Strong>
+        </CardTotal>
+
         <Card>
           <Header>
             <Text>Entradas</Text>
@@ -48,14 +49,6 @@ export function Cards() {
           </Header>
           <Strong>R$ {summary.withdraws}</Strong>
         </Card>
-
-        <CardTotal>
-          <Header>
-            <Text>Total</Text>
-            <Image source={require("./../../../assets/Total.png")} />
-          </Header>
-          <Strong>R$ {summary.total}</Strong>
-        </CardTotal>
       </ScrollView>
     </Container>
   );
