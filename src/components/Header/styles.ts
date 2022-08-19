@@ -17,7 +17,7 @@ export const Content = styled.View`
 
 export const LogoWrapper = styled.View`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -25,6 +25,13 @@ export const ButtonWrapper = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 8px;
+`;
+
+export const ButtonsWrapper = styled.View` 
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 `;
 
 export const LogoText = styled.Text`
