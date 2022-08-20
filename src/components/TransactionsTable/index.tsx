@@ -72,7 +72,6 @@ export function TransactionsTable() {
             onValueChange={(value) => setCategoria(value)}
             value={categoria}
             items={[
-              { label: "Padrão", value: "Padrão" },
               { label: "Moradia", value: "Moradia" },
               { label: "Trabalho", value: "Trabalho" },
               { label: "Diversão", value: "Diversão" },

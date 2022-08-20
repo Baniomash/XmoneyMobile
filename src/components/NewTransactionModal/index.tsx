@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Modal, Text } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { useTransactions } from "../../hooks/useTransactions";
@@ -35,31 +35,32 @@ export function NewTransactionModal({
   const [bank, setBank] = useState("");
   const [text, setText] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     setAmount(parseFloat(text))
   }, [text])
 
-  
+
   async function handleCreateNewTransaction() {
     if (title == "" || text == "" || category == "" || bank == "") {
       Alert.alert("Preencha todos os campos!!!")
     } else {
-    await createTrasaction({
-      title,
-      amount,
-      category,
-      type,
-      bank,
-    });
+      await createTrasaction({
+        title,
+        amount,
+        category,
+        type,
+        bank,
+      });
 
-    setTitle("");
-    setAmount(0);
-    setCategory("");
-    setType(true);
-    setBank("");
-    onRequestClose();
+      setTitle("");
+      setAmount(0);
+      setCategory("");
+      setType(true);
+      setBank("");
+      setText("");
+      onRequestClose();
+    }
   }
-}
 
   return (
     <CenteredView>
@@ -73,7 +74,7 @@ export function NewTransactionModal({
           <ModalView>
             <Header>
               <ModalTitle>Cadastrar transação</ModalTitle>
-              <BtnClose onPress={onRequestClose}><Text style={{fontSize: 30}}>x</Text></BtnClose>
+              <BtnClose onPress={onRequestClose}><Text style={{ fontSize: 30 }}>x</Text></BtnClose>
             </Header>
             <Input onChangeText={setTitle} value={title} placeholder="Nome" />
             <Input
@@ -84,7 +85,7 @@ export function NewTransactionModal({
             />
             <TransactioTypeContainer>
               <RadioBox
-              style={{ backgroundColor: type ? "#bcffb5" : "#FFFFFF" }}
+                style={{ backgroundColor: type ? "#bcffb5" : "#FFFFFF" }}
                 onPress={() => {
                   setType(true);
                 }}
@@ -108,7 +109,6 @@ export function NewTransactionModal({
               onValueChange={(value) => setCategory(value)}
               value={category}
               items={[
-                { label: "Padrão", value: "Padrão" },
                 { label: "Moradia", value: "Moradia" },
                 { label: "Trabalho", value: "Trabalho" },
                 { label: "Diversão", value: "Diversão" },

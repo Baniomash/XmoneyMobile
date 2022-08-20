@@ -9,10 +9,18 @@ export function ChartsPage() {
   return (
     <View>
       <ScrollView>
-        <ChartType />
-        <ChartUnit />
-        <ChartBank />
-        <ChartCategory />
+        <View>
+          <ChartType />
+        </View>
+        <View>
+          <ChartUnit />
+        </View>
+        <View>
+          <ChartBank />
+        </View>
+        <View>
+          <ChartCategory />
+        </View>
       </ScrollView>
     </ View>
   );
