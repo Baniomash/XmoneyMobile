@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-native";
 import { AppStackParams } from "../../../App";
 import { ButtonsWrapper, ButtonWrapper, Container, Content, LogoImage, LogoText, LogoWrapper } from "./styles";
@@ -7,11 +7,20 @@ import { ButtonsWrapper, ButtonWrapper, Container, Content, LogoImage, LogoText,
 type Props = NativeStackScreenProps<AppStackParams>;
 
 interface HeaderProps {
-  onOpenNewTransactionModal: () => void;
+  onOpenNewTransactionModal?: () => void;
   navigation: Props;
 }
 
 export function Header({ onOpenNewTransactionModal, navigation }: HeaderProps) {
+  
+  const [isCharts, setIsCharts] = useState(false);
+
+  useEffect(() => {
+  if(navigation.navigation.getState().index == 1){
+    setIsCharts(true);
+  }
+  }, [])
+
   return (
     <Container>
       <Content>
@@ -19,7 +28,7 @@ export function Header({ onOpenNewTransactionModal, navigation }: HeaderProps) {
           <LogoImage source={require("./../../../assets/LogoImg.png")} />
           <LogoText>XMoney</LogoText>
         </LogoWrapper>
-        <ButtonsWrapper>
+        {!isCharts ?<ButtonsWrapper>
           <ButtonWrapper>
             <Button
               title="Ver Gráficos"
@@ -37,6 +46,18 @@ export function Header({ onOpenNewTransactionModal, navigation }: HeaderProps) {
             />
           </ButtonWrapper>
         </ButtonsWrapper>
+        :<ButtonsWrapper>
+          <ButtonWrapper>
+            <Button
+              title="Ver Transações"
+              color="#6933FF"
+              onPress={() => {
+                navigation.navigation.navigate("transactionsPage");
+              }}
+            />
+          </ButtonWrapper>
+        </ButtonsWrapper>
+        }
       </Content>
     </Container>
   );
