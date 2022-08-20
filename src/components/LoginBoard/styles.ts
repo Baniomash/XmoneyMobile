@@ -31,3 +31,8 @@ export const BtnLoginTitulo = styled.Text`
   text-align: center;
   padding: 14px;
 `;
+
+export const BiometricView = styled.View`
+  margin-top: 8px;
+  align-items: center;
+`;

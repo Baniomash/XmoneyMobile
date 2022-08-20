@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
+import { Alert, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useState } from "react";
-import { Alert, Button, Text } from "react-native";
+import * as LocalAuthentication from 'expo-local-authentication'
 import { AuthStackParams } from "../../../App";
 import { useUsuarios, Usuarios } from "../../hooks/auth";
 import { Input, ModalTitle, ModalView } from "../NewTransactionModal/styles";
@@ -10,6 +11,7 @@ import {
   BtnLoginTitulo,
   BtnCadastrar,
   BtnCadastrarTitulo,
+  BiometricView,
 } from "./styles";
 
 type Props = NativeStackScreenProps<AuthStackParams>;
@@ -25,20 +27,52 @@ export function LoginBoard({ onLogin, navigation }: LoginBoardProps) {
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
 
-  function isAuth(user: Usuarios){
+  function isAuth(user: Usuarios) {
     return user.password === senha && user.login === login;
-  }
+  };
 
-  function handleAutenticar(){
+  function handleAutenticar() {
     if (login == "" || senha == "") {
       Alert.alert("Preencha todos os campos!!!")
     } else {
-      if(usuario.find(isAuth) == undefined){
-        Alert.alert( "Login ou Senha incorreto(a)/s!!!")
-      }else{
+      if (usuario.find(isAuth) == undefined) {
+        Alert.alert("Login ou Senha incorreto(a)/s!!!")
+      } else {
         onLogin();
       }
-    }}
+    }
+  };
+
+  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
+  useEffect(() => {
+    (async () => {
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      setIsBiometricSupported(compatible);
+    })();
+  });
+
+  const handleBiometricAuth = async () => {
+
+    const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
+
+    const biometricAuth = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Toque no sensor de impressão digital',
+      disableDeviceFallback: true,
+      cancelLabel: 'Cancelar',
+    });
+    if (!savedBiometrics) {
+      return Alert.alert(
+        'Nenhuma digital foi encontrada cadastrada no seu aparelho.',
+        'Por favor, cadastre uma digital no seu aparelho para utilizar essa funcionalidade.',
+      )
+    } else {
+      if (biometricAuth.success) {
+        onLogin();
+      } else {
+        Alert.alert('Autenticação falhou');
+      }
+    };
+  }
 
   return (
     <Container>
@@ -73,8 +107,16 @@ export function LoginBoard({ onLogin, navigation }: LoginBoardProps) {
         <BtnLogin onPress={handleAutenticar}>
           <BtnLoginTitulo>Entrar</BtnLoginTitulo>
         </BtnLogin>
-        <Text>Você pode autenticar usando a digital</Text>
+        {isBiometricSupported ?
+          <BiometricView>
+            <Text>Você também pode logar com sua digital!</Text>
+            <BtnCadastrar onPress={handleBiometricAuth}>
+              <BtnCadastrarTitulo>Usar Digital</BtnCadastrarTitulo>
+            </BtnCadastrar>
+          </BiometricView>
+          : <View></View>}
       </ModalView>
     </Container>
   );
 }
+
