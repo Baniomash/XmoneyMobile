@@ -1,7 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
-import { Use } from "react-native-svg";
 import { UsuariosProvider } from "./src/hooks/auth";
 import { TransactionsProvider } from "./src/hooks/useTransactions";
 import { ChartsPage } from "./src/screens/ChartsPage";
