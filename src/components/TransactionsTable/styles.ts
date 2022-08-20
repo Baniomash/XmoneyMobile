@@ -5,7 +5,7 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const Card = styled.View`
+export const Card = styled.Pressable`
   background: #ffffff;
   border-radius: 5px;
   width: 330px;

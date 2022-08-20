@@ -28,7 +28,8 @@ interface TransactionsProviderProps {
 
 interface TransactionsContextData {
   transactions: Transaction[];
-  createTrasaction: (transaction: TransactionInput) => Promise<void>;
+  createTransaction: (transaction: TransactionInput) => Promise<void>;
+  deleteTransaction: (id: number) => Promise<void>;
 }
 
 const TransactionsContext = createContext<TransactionsContextData>(
@@ -38,13 +39,17 @@ const TransactionsContext = createContext<TransactionsContextData>(
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  useEffect(() => {
-    api
+  async function getCards() {
+    await api
       .get("Cards")
       .then((response: { data: SetStateAction<Transaction[]>; }) => setTransactions(response.data));
+  }
+
+  useEffect(() => {
+    getCards();
   }, []);
 
-  async function createTrasaction(transactionInput: TransactionInput) {
+  async function createTransaction(transactionInput: TransactionInput) {
     const response = await api.post("/Cards", {
       ...transactionInput,
       createdAt: moment(new Date).format("DD/MM/YYYY hh:mm a"),
@@ -53,11 +58,18 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     setTransactions([...transactions, transaction]);
   }
 
+  async function deleteTransaction(id: number) {
+    await api
+      .delete(`/Cards/${id}`)
+      .then(getCards())
+  }
+
   return (
     <TransactionsContext.Provider
       value={{
         transactions,
-        createTrasaction,
+        createTransaction,
+        deleteTransaction
       }}
     >
       {children}

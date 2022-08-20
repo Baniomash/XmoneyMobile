@@ -20,6 +20,12 @@ import {
 } from "./styles";
 export function TransactionsTable() {
   let { transactions } = useTransactions();
+  const { deleteTransaction } = useTransactions();
+
+  async function handleDelete(id: number) {
+    console.log(id);
+    await deleteTransaction(id);
+  }
 
   let cardsMostrar;
   const [categoria, setCategoria] = useState(undefined);
@@ -121,8 +127,8 @@ export function TransactionsTable() {
       {transactions &&
         <Scroll >
           {cardsMostrar.map(transaction => (
-            <Card key={transaction.id}>
-              <Conteudo>
+            <Card key={transaction.id} onLongPress={() => handleDelete(transaction.id)}>
+              <Conteudo >
                 <Header>
                   <Cabeçalho>
                     <Titulo>{transaction.title}</Titulo>

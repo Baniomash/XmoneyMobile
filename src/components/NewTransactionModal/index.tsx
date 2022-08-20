@@ -26,7 +26,7 @@ export function NewTransactionModal({
   isOpen,
   onRequestClose,
 }: NewTransactionModalProps) {
-  const { createTrasaction } = useTransactions();
+  const { createTransaction } = useTransactions();
 
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
@@ -44,7 +44,7 @@ export function NewTransactionModal({
     if (title == "" || text == "" || category == "" || bank == "") {
       Alert.alert("Preencha todos os campos!!!")
     } else {
-      await createTrasaction({
+      await createTransaction({
         title,
         amount,
         category,
