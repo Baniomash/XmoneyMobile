@@ -1,10 +1,12 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 import { useTransactions } from '../../hooks/useTransactions';
 
 export function ChartCategory() {
     const { transactions } = useTransactions();
+
+    const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
 
     let totalCategoria: number[] = [];
     const summary = transactions.reduce(
@@ -40,7 +42,7 @@ export function ChartCategory() {
         .map((value, index) => ({
             value,
             svg: {
-                fill: ['#8800cc', '#aa00ff', '#cc66ff', '#eeccff', '#ecdaf5'][index],
+                fill: randomColor(),
                 onPress: () => console.log(`${transactions[index].category}`),
             },
             key: `${totalCategoria[index]}`,
