@@ -4,7 +4,6 @@ import { Text } from 'react-native-svg'
 import { useTransactions } from '../../hooks/useTransactions';
 import { Container, Cor, Legenda, LegendaWrapper, TopTitle, Wrapper } from './styles';
 import { currencyFormat } from '../TransactionsTable';
-import { View } from 'react-native';
 
 export function ChartType() {
     const { transactions } = useTransactions();
@@ -29,21 +28,21 @@ export function ChartType() {
     totalTipo.push(summary.entrada, summary.saida);
 
     const categoryData = totalTipo
-        .filter((value) => value > 0)
+        .filter((value) => value >= 0)
         .map((value, index) => ({
             value,
             svg: {
                 fill: ['#12A454', '#E52E4D'][index],
-                onPress: () => console.log(`${transactions[index].type ? 'Entrada' : 'Saída'}`),
+                onPress: () => console.log('press', value),
             },
-            key: `${totalTipo[index]}`,
+            key: `tipo - ${totalTipo[index]}`,
         }));
 
     const Label = ({ slices }: any) => {
+        setTotalIncome(summary.entrada);
+        setTotalOutcome(summary.saida);
         return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
             const { pieCentroid, data } = slice;
-            setTotalIncome(summary.entrada);
-            setTotalOutcome(summary.saida);
             return (
                 <Text
                     key={`label - ${index}`}
@@ -54,28 +53,28 @@ export function ChartType() {
                     alignmentBaseline={'middle'}
                     fontSize={15}
                 >
-                    {transactions[index].type ? 'Entradas' : 'Saídas'}
+                    {data.value}
 
                 </Text>
             )
         });
     }
     return (
-        <Container>
-            <TopTitle>Entradas x Saídas</TopTitle>
-            <PieChart style={{ height: 300 }} data={categoryData}>
-                <Label slices={undefined} />
-            </PieChart>
-            <LegendaWrapper>
-                <Wrapper>
-                    <Cor style={{ backgroundColor: "#12A454" }} />
-                    <Legenda>Entradas - {currencyFormat(totalIncome)}</Legenda>
-                </Wrapper>
-                <Wrapper>
-                    <Cor style={{ backgroundColor: "#E52E4D" }} />
-                    <Legenda>Saídas - {currencyFormat(totalOutcome)}</Legenda>
-                </Wrapper>
-            </LegendaWrapper>
+        <Container>{transactions.length > 0 && (
+            <>
+                <TopTitle>Entradas x Saídas</TopTitle><PieChart style={{ height: 300 }} data={categoryData}>
+                    <Label slices={undefined} />
+                </PieChart><LegendaWrapper>
+                    <Wrapper>
+                        <Cor style={{ backgroundColor: "#12A454" }} />
+                        <Legenda>Entradas - {currencyFormat(totalIncome)}</Legenda>
+                    </Wrapper>
+                    <Wrapper>
+                        <Cor style={{ backgroundColor: "#E52E4D" }} />
+                        <Legenda>Saídas - {currencyFormat(totalOutcome)}</Legenda>
+                    </Wrapper>
+                </LegendaWrapper>
+            </>)}
         </Container>
     )
 }

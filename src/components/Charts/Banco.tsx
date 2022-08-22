@@ -63,30 +63,28 @@ export function ChartBank() {
     saidasBanco.push(saidas.itau, saidas.nubank, saidas.santander, saidas.caixa, saidas.avista);
 
     const entradasData = entradasBanco
-        .filter((value) => value > 0)
+        .filter((value) => value >= 0)
         .map((value, index) => ({
             value,
             svg: {
                 fill: randomColor(),
-                onPress: () => console.log(`${transactions[index].bank}`),
             },
-            key: `${entradasBanco[index]}`,
+            key: `bankIn - ${entradasBanco[index]}`,
         }));
 
     const saidasData = saidasBanco
-        .filter((value) => value > 0)
+        .filter((value) => value >= 0)
         .map((value, index) => ({
             value,
             svg: {
                 fill: randomColor(),
-                onPress: () => console.log(`${transactions[index].bank}`),
             },
-            key: `${saidasBanco[index]}`,
+            key: `bankOut - ${saidasBanco[index]}`,
         }));
 
     const Label = ({ slices }: any) => {
         return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
-            const { pieCentroid } = slice;
+            const { pieCentroid, data } = slice;
             return (
                 <Text
                     x={pieCentroid[0]}
@@ -96,7 +94,7 @@ export function ChartBank() {
                     alignmentBaseline={'middle'}
                     fontSize={15}
                 >
-                    {transactions[index].bank}
+                    {data.value}
 
                 </Text>
             )

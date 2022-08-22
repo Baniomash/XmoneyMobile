@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 import { useTransactions } from '../../hooks/useTransactions';
@@ -20,32 +20,33 @@ export function ChartUnit() {
             dataSaidas.push(item.amount);
         }
     });
+    console.log(dataEntradas, dataSaidas);
 
     const pieDataEntradas = dataEntradas
-        .filter((value) => value > 0)
+        .filter((value) => value >= 0)
         .map((value, index) => ({
             value,
             svg: {
                 fill: randomColor(),
                 onPress: () => console.log(`${transactions[index].title}`),
             },
-            key: `${transactions[index].id}`,
+            key: `unitIn - ${transactions[index].id}`,
         }));
 
     const pieDataSaidas = dataSaidas
-        .filter((value) => value > 0)
+        .filter((value) => value >= 0)
         .map((value, index) => ({
             value,
             svg: {
                 fill: randomColor(),
                 onPress: () => console.log(`${transactions[index].title}`),
             },
-            key: `${transactions[index].id}`,
+            key: `unitOut - ${transactions[index].id}`,
         }));
 
     const Label = ({ slices }: any) => {
         return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
-            const { pieCentroid } = slice;
+            const { pieCentroid, data } = slice;
             return (
 
                 <Text
@@ -57,45 +58,49 @@ export function ChartUnit() {
                     alignmentBaseline={'middle'}
                     fontSize={15}
                 >
-                    {transactions[index].title}
-
+                    {data.value}
                 </Text>
             )
         });
     }
     return (
         <Container>
-            <TopTitle>Unitário - Entradas</TopTitle>
-            <PieChart style={{ height: 300 }} data={pieDataEntradas}>
-                <Label slices={undefined} />
-            </PieChart>
-            <LegendaWrapper>
-                {transactions.map(transaction => (
-                    <Wrapper>
-                        {transaction.type == true &&
-                            <>
-                                <Cor style={{ backgroundColor: randomColor() }} />
-                                <Legenda>{transaction.title} - {currencyFormat(transaction.amount)}</Legenda>
-                            </>}
-                    </Wrapper>
-                ))}
-            </LegendaWrapper>
 
-            <TopTitle>Unitário - Saídas</TopTitle>
-            <PieChart style={{ height: 300 }} data={pieDataSaidas}>
-                <Label slices={undefined} />
-            </PieChart>
-            <LegendaWrapper>
-                {transactions.map(transaction => (
-                    <Wrapper>
-                        {transaction.type == false &&
-                            <>
-                                <Cor style={{ backgroundColor: randomColor() }} />
-                                <Legenda>{transaction.title} - {currencyFormat(transaction.amount)}</Legenda>
-                            </>}
-                    </Wrapper>
-                ))}
-            </LegendaWrapper>
+            {dataEntradas.length > 0 && (
+                <>
+                    <TopTitle>Unitário - Entradas</TopTitle><PieChart style={{ height: 300 }} data={pieDataEntradas}>
+                        <Label slices={undefined} />
+                    </PieChart>
+                    <LegendaWrapper>
+                        {transactions.map(transaction => (
+                            <Wrapper>
+                                {transaction.type == true &&
+                                    <>
+                                        <Cor style={{ backgroundColor: randomColor() }} />
+                                        <Legenda>{transaction.title} - {currencyFormat(transaction.amount)}</Legenda>
+                                    </>}
+                            </Wrapper>
+                        ))}
+                    </LegendaWrapper>
+                </>
+            )}
+            {dataSaidas.length > 0 && (
+                <>
+                    <TopTitle>Unitário - Saídas</TopTitle><PieChart style={{ height: 300 }} data={pieDataSaidas}>
+                        <Label slices={undefined} />
+                    </PieChart><LegendaWrapper>
+                        {transactions.map(transaction => (
+                            <Wrapper>
+                                {transaction.type == false &&
+                                    <>
+                                        <Cor style={{ backgroundColor: randomColor() }} />
+                                        <Legenda>{transaction.title} - {currencyFormat(transaction.amount)}</Legenda>
+                                    </>}
+                            </Wrapper>
+                        ))}
+                    </LegendaWrapper>
+                </>
+            )}
         </Container >
     )
 }
