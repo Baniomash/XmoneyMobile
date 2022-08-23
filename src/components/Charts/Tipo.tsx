@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 import { useTransactions } from '../../hooks/useTransactions';
-import { Container, Cor, Legenda, LegendaWrapper, TopTitle, Wrapper } from './styles';
+import { Container, Cor, Legenda, LegendaWrapper, TopTitle, Wrapper, Error, ErrorMsg } from './styles';
 import { currencyFormat } from '../TransactionsTable';
+import { useWindowDimensions } from 'react-native';
 
 export function ChartType() {
     const { transactions } = useTransactions();
+    const window = useWindowDimensions();
     const [totalIncome, setTotalIncome] = useState(0);
     const [totalOutcome, setTotalOutcome] = useState(0);
 
@@ -63,21 +65,28 @@ export function ChartType() {
     }, []);
 
     return (
-        <Container>{transactions.length > 0 && (
-            <>
-                <TopTitle>Entradas x Saídas</TopTitle><PieChart style={{ height: 300 }} data={categoryData}>
-                    <Label slices={undefined} />
-                </PieChart><LegendaWrapper>
-                    <Wrapper>
-                        <Cor style={{ backgroundColor: "#12A454" }} />
-                        <Legenda>Entradas - {currencyFormat(totalIncome)}</Legenda>
-                    </Wrapper>
-                    <Wrapper>
-                        <Cor style={{ backgroundColor: "#E52E4D" }} />
-                        <Legenda>Saídas - {currencyFormat(totalOutcome)}</Legenda>
-                    </Wrapper>
-                </LegendaWrapper>
-            </>)}
+        <Container>
+            {transactions.length > 0 && (
+                <>
+                    <TopTitle>Entradas x Saídas</TopTitle><PieChart style={{ height: 300 }} data={categoryData}>
+                        <Label slices={undefined} />
+                    </PieChart><LegendaWrapper>
+                        <Wrapper>
+                            <Cor style={{ backgroundColor: "#12A454" }} />
+                            <Legenda>Entradas - {currencyFormat(totalIncome)}</Legenda>
+                        </Wrapper>
+                        <Wrapper>
+                            <Cor style={{ backgroundColor: "#E52E4D" }} />
+                            <Legenda>Saídas - {currencyFormat(totalOutcome)}</Legenda>
+                        </Wrapper>
+                    </LegendaWrapper>
+                </>)}
+            {transactions.length == 0 &&
+                <>
+                    <Error source={require("./../../../assets/error-418.png")} />
+                    <ErrorMsg>Insira algum dado para poder visualizar os gráficos XD</ErrorMsg>
+                </>
+            }
         </Container>
     )
 }

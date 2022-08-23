@@ -39,3 +39,14 @@ export const Cor = styled.View`
     border-radius: 10px;
     margin-top: 2px;
 `;
+
+export const Error = styled.Image`
+    width: 400px;
+    height: 210px;
+`;
+
+export const ErrorMsg = styled.Text`
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+`;

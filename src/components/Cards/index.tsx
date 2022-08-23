@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, Image } from "react-native";
+import { ScrollView, Text, Image } from "react-native";
 import { Container, Header, Strong, Card, CardTotal } from "./styles";
 import { useTransactions } from "../../hooks/useTransactions";
 import { currencyFormat } from "../TransactionsTable";
