@@ -16,10 +16,10 @@ export function ChartsPage(navigation: Props) {
     <View style={{}}>
       <Header navigation={navigation} />
       <ScrollView style={{ marginTop: -120, height: 615 }}>
-        {/* <ChartType /> */}
-        {/* <ChartUnit /> */}
+        <ChartType />
+        <ChartUnit />
         <ChartBank />
-        {/* <ChartCategory /> */}
+        <ChartCategory />
       </ScrollView>
     </ View>
   );

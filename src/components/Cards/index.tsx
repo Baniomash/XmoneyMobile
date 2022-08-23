@@ -1,6 +1,7 @@
 import { ScrollView, Text, View, Image } from "react-native";
 import { Container, Header, Strong, Card, CardTotal } from "./styles";
 import { useTransactions } from "../../hooks/useTransactions";
+import { currencyFormat } from "../TransactionsTable";
 
 export function Cards() {
   const { transactions } = useTransactions();
@@ -26,12 +27,12 @@ export function Cards() {
   return (
     <Container>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      <CardTotal style={summary.total < 0 ? {backgroundColor: "#df0000"}:{backgroundColor: "#33cc95"} }>
+        <CardTotal style={summary.total < 0 ? { backgroundColor: "#df0000" } : { backgroundColor: "#33cc95" }}>
           <Header>
             <Text>Total</Text>
             <Image source={require("./../../../assets/Total.png")} />
           </Header>
-          <Strong>R$ {summary.total}</Strong>
+          <Strong>{currencyFormat(summary.total)}</Strong>
         </CardTotal>
 
         <Card>
@@ -39,7 +40,7 @@ export function Cards() {
             <Text>Entradas</Text>
             <Image source={require("./../../../assets/Entradas.png")} />
           </Header>
-          <Strong>R$ {summary.deposits}</Strong>
+          <Strong>{currencyFormat(summary.deposits)}</Strong>
         </Card>
 
         <Card>
@@ -47,7 +48,7 @@ export function Cards() {
             <Text>Saídas</Text>
             <Image source={require("./../../../assets/Saidas.png")} />
           </Header>
-          <Strong>R$ {summary.withdraws}</Strong>
+          <Strong>{currencyFormat(summary.withdraws)}</Strong>
         </Card>
       </ScrollView>
     </Container>

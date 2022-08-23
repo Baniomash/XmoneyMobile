@@ -60,7 +60,7 @@ export function ChartType() {
     useEffect(() => {
         setTotalIncome(summary.entrada);
         setTotalOutcome(summary.saida);
-    },[]);
+    }, []);
 
     return (
         <Container>{transactions.length > 0 && (

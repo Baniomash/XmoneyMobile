@@ -137,7 +137,7 @@ export function TransactionsTable() {
                 <Header>
                   <Cabeçalho>
                     <Titulo>{transaction.title}</Titulo>
-                    <Valor style={{ color: transaction.type ? "green" : "red" }}>R$ {transaction.amount}</Valor>
+                    <Valor style={{ color: transaction.type ? "green" : "red" }}>{currencyFormat(transaction.amount)}</Valor>
                   </Cabeçalho>
                   <Banco>{transaction.bank}</Banco>
                 </Header>

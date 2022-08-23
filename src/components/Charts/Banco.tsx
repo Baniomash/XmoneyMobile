@@ -62,14 +62,21 @@ export function ChartBank() {
     );
     saidasBanco.push(saidas.itau, saidas.nubank, saidas.santander, saidas.caixa, saidas.avista);
 
+    function maiorQueZero(value: number) {
+        return value > 0;
+    }
+
+    let checaEntradas = entradasBanco.some(maiorQueZero);
+    let checaSaidas = saidasBanco.some(maiorQueZero);
+
     const entradasData = entradasBanco
         .filter((value) => value >= 0)
         .map((value, index) => ({
             value,
             svg: {
-                fill: randomColor(),
+                fill: ['#e46c0a', '#9c44dc', '#ec0000', '#1c60ab', '#12A454'][index],
             },
-            key: `bankIn - ${entradasBanco[index]}`,
+            key: `bankIn - ${randomColor()}`,
         }));
 
     const saidasData = saidasBanco
@@ -77,13 +84,13 @@ export function ChartBank() {
         .map((value, index) => ({
             value,
             svg: {
-                fill: randomColor(),
+                fill: ['#e46c0a', '#9c44dc', '#ec0000', '#1c60ab', '#12A454'][index],
             },
-            key: `bankOut - ${saidasBanco[index]}`,
+            key: `bankOut - ${randomColor()}`,
         }));
 
     const Label = ({ slices }: any) => {
-        return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
+        return slices.map((slice: { pieCentroid: any; data: any; }) => {
             const { pieCentroid, data } = slice;
             return (
                 <Text
@@ -95,44 +102,83 @@ export function ChartBank() {
                     fontSize={15}
                 >
                     {data.value}
-
                 </Text>
             )
         });
     }
     return (
         <Container>
-            <TopTitle>Banco - Entradas</TopTitle>
-            <PieChart style={{ height: 300 }} data={entradasData}>
-                <Label slices={undefined} />
-            </PieChart>
-            <LegendaWrapper>
-                {transactions.map(transaction => (
-                    <Wrapper>
-                        {transaction.type == true &&
-                            <>
-                                <Cor style={{ backgroundColor: randomColor() }} />
-                                <Legenda>{transaction.bank} - {currencyFormat(transaction.amount)}</Legenda>
-                            </>}
-                    </Wrapper>
-                ))}
-            </LegendaWrapper>
+            {checaEntradas && (
+                <>
+                    <TopTitle>Bancos - Entradas</TopTitle>
+                    <PieChart style={{ height: 300 }} data={entradasData}>
+                        <Label slices={undefined} />
+                    </PieChart>
+                    <LegendaWrapper>
+                        {entradas.itau > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#f28500" }} />
+                                <Legenda>Itaú - {currencyFormat(entradas.itau)}</Legenda>
+                            </Wrapper>}
+                        {entradas.nubank > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#9c44dc" }} />
+                                <Legenda>NuBank - {currencyFormat(entradas.nubank)}</Legenda>
+                            </Wrapper>}
+                        {entradas.santander > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#ec0000" }} />
+                                <Legenda>Santander - {currencyFormat(entradas.santander)}</Legenda>
+                            </Wrapper>}
+                        {entradas.caixa > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#1c60ab" }} />
+                                <Legenda>Caixa - {currencyFormat(entradas.caixa)}</Legenda>
+                            </Wrapper>}
+                        {entradas.avista > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#12A454" }} />
+                                <Legenda>À vista - {currencyFormat(entradas.avista)}</Legenda>
+                            </Wrapper>}
+                    </LegendaWrapper>
+                </>
+            )}
 
-            <TopTitle>Banco - Saídas</TopTitle>
-            <PieChart style={{ height: 300 }} data={saidasData}>
-                <Label slices={undefined} />
-            </PieChart>
-            <LegendaWrapper>
-                {transactions.map(transaction => (
-                    <Wrapper>
-                        {transaction.type == false &&
-                            <>
-                                <Cor style={{ backgroundColor: randomColor() }} />
-                                <Legenda>{transaction.bank} - {currencyFormat(transaction.amount)}</Legenda>
-                            </>}
-                    </Wrapper>
-                ))}
-            </LegendaWrapper>
+            {checaSaidas && (
+                <>
+                    <TopTitle>Bancos - Saídas</TopTitle>
+                    <PieChart style={{ height: 300 }} data={saidasData}>
+                        <Label slices={undefined} />
+                    </PieChart>
+                    <LegendaWrapper>
+                        {saidas.itau > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#f28500" }} />
+                                <Legenda>Itaú - {currencyFormat(saidas.itau)}</Legenda>
+                            </Wrapper>}
+                        {saidas.nubank > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#9c44dc" }} />
+                                <Legenda>NuBank - {currencyFormat(saidas.nubank)}</Legenda>
+                            </Wrapper>}
+                        {saidas.santander > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#ec0000" }} />
+                                <Legenda>Santander - {currencyFormat(saidas.santander)}</Legenda>
+                            </Wrapper>}
+                        {saidas.caixa > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#1c60ab" }} />
+                                <Legenda>Caixa {currencyFormat(saidas.caixa)}</Legenda>
+                            </Wrapper>}
+                        {saidas.avista > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "#12A454" }} />
+                                <Legenda>À vista {currencyFormat(saidas.avista)}</Legenda>
+                            </Wrapper>}
+                    </LegendaWrapper>
+                </>
+            )}
         </Container >
     )
 };

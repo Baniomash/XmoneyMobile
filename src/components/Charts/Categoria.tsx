@@ -65,7 +65,7 @@ export function ChartCategory() {
     saidas.push(saida.moradia, saida.diversao, saida.trabalho, saida.supermercado, saida.saude);
 
     function maiorQueZero(value: number) {
-    return value > 0;
+        return value > 0;
     }
 
     let checaEntradas = entradas.some(maiorQueZero);
@@ -76,7 +76,7 @@ export function ChartCategory() {
         .map((value, index) => ({
             value,
             svg: {
-                fill: ["red", "blue", "green", "yellow", "cyan"][index],
+                fill: ["#ee9c2e", "#f1dec3", "#f28e36", "#a8b16b", "#4e6424"][index],
             },
             key: `categoryOut - ${randomColor()}}`,
         }));
@@ -86,7 +86,7 @@ export function ChartCategory() {
         .map((value, index) => ({
             value,
             svg: {
-                fill: ["red", "blue", "green", "yellow", "cyan"][index],
+                fill: ["#386641", "#6a994e", "#a7c957", "#f2e8cf", "#bc4749"][index],
             },
             key: `categoryIn - ${randomColor()}`,
         }));
@@ -110,72 +110,72 @@ export function ChartCategory() {
     }
     return (
         <Container>
-            {checaEntradas == true && (
+            {checaEntradas && (
                 <>
                     <TopTitle>Categorias - Entradas</TopTitle>
                     <PieChart style={{ height: 300 }} data={catEntrada}>
                         <Label slices={undefined} />
                     </PieChart>
                     <LegendaWrapper>
-                        {entrada.moradia > 0 && 
+                        {entrada.moradia > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor:"red" }} />
-                                <Legenda>Moradia</Legenda>
+                                <Cor style={{ backgroundColor: "#386641" }} />
+                                <Legenda>Moradia - {currencyFormat(entrada.moradia)}</Legenda>
                             </Wrapper>}
                         {entrada.diversao > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor: "blue" }} />
-                                <Legenda>Diversão</Legenda>
+                                <Cor style={{ backgroundColor: "#6a994e" }} />
+                                <Legenda>Diversão - {currencyFormat(entrada.diversao)}</Legenda>
                             </Wrapper>}
                         {entrada.trabalho > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor: "green" }} />
-                                <Legenda>Trabalho</Legenda>
+                                <Cor style={{ backgroundColor: "#a7c957" }} />
+                                <Legenda>Trabalho - {currencyFormat(entrada.trabalho)}</Legenda>
                             </Wrapper>}
                         {entrada.supermercado > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor: "yellow" }} />
-                                <Legenda>Supermecado</Legenda>
+                                <Cor style={{ backgroundColor: "#f2e8cf" }} />
+                                <Legenda>Supermecado - {currencyFormat(entrada.supermercado)}</Legenda>
                             </Wrapper>}
                         {entrada.saude > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor: "cyan" }} />
-                                <Legenda>Saúde</Legenda>
+                                <Cor style={{ backgroundColor: "#bc4749" }} />
+                                <Legenda>Saúde - {currencyFormat(entrada.saude)}</Legenda>
                             </Wrapper>}
                     </LegendaWrapper>
                 </>
             )}
-            {checaSaidas == true && (
+            {checaSaidas && (
                 <>
                     <TopTitle>Categorias - Saídas</TopTitle>
                     <PieChart style={{ height: 300 }} data={catSaida}>
                         <Label slices={undefined} />
                     </PieChart>
                     <LegendaWrapper>
-                        {saida.moradia > 0 && 
+                        {saida.moradia > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor:"red" }} />
-                                <Legenda>Moradia</Legenda>
+                                <Cor style={{ backgroundColor: "#ee9c2e" }} />
+                                <Legenda>Moradia - {currencyFormat(saida.moradia)}</Legenda>
                             </Wrapper>}
                         {saida.diversao > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor: "blue" }} />
-                                <Legenda>Diversão</Legenda>
+                                <Cor style={{ backgroundColor: "#f1dec3" }} />
+                                <Legenda>Diversão - {currencyFormat(saida.diversao)}</Legenda>
                             </Wrapper>}
                         {saida.trabalho > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor: "green" }} />
-                                <Legenda>Trabalho</Legenda>
+                                <Cor style={{ backgroundColor: "#f28e36" }} />
+                                <Legenda>Trabalho - {currencyFormat(saida.trabalho)}</Legenda>
                             </Wrapper>}
                         {saida.supermercado > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor: "yellow" }} />
-                                <Legenda>Supermecado</Legenda>
+                                <Cor style={{ backgroundColor: "#a8b16b" }} />
+                                <Legenda>Supermecado - {currencyFormat(saida.supermercado)}</Legenda>
                             </Wrapper>}
                         {saida.saude > 0 &&
                             <Wrapper>
-                                <Cor style={{ backgroundColor: "cyan" }} />
-                                <Legenda>Saúde</Legenda>
+                                <Cor style={{ backgroundColor: "#4e6424" }} />
+                                <Legenda>Saúde - {currencyFormat(saida.saude)}</Legenda>
                             </Wrapper>}
                     </LegendaWrapper>
                 </>

@@ -11,9 +11,9 @@ export function ChartUnit() {
     const { transactions } = useTransactions();
 
     let dataEntradas: number[] = [];
-    let coresEntradas: string[]= [];
+    let coresEntradas: string[] = [];
     let dataSaidas: number[] = [];
-    let coresSaidas: string[]= [];
+    let coresSaidas: string[] = [];
     let i: number = -1;
 
     transactions.forEach(item => {
@@ -25,7 +25,7 @@ export function ChartUnit() {
             randomColor()
             coresSaidas.push(randomColor());
         }
-    });    
+    });
 
     const pieDataEntradas = dataEntradas
         .filter((value) => value >= 0)
@@ -68,8 +68,8 @@ export function ChartUnit() {
         });
     }
 
-    function somaValor(){
-        if(i<coresEntradas.length-1 || i<coresSaidas.length-1){
+    function somaValor() {
+        if (i < coresEntradas.length - 1 || i < coresSaidas.length - 1) {
             i++
         } else {
             i = 0
@@ -93,7 +93,7 @@ export function ChartUnit() {
                                         <Cor style={{ backgroundColor: coresEntradas[somaValor()] }} />
                                         <Legenda>{transaction.title} - {currencyFormat(transaction.amount)}</Legenda>
                                     </>
-                                    }
+                                }
                             </Wrapper>
                         ))}
                     </LegendaWrapper>
