@@ -112,7 +112,7 @@ export function NewTransactionModal({
                 { label: "Moradia", value: "Moradia" },
                 { label: "Trabalho", value: "Trabalho" },
                 { label: "Diversão", value: "Diversão" },
-                { label: "Supermecado", value: "Supermecado" },
+                { label: "Supermercado", value: "Supermercado" },
                 { label: "Saúde", value: "Saúde" },
               ]}
             />

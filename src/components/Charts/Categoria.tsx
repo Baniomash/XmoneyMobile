@@ -10,65 +10,78 @@ export function ChartCategory() {
 
     const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
 
-    let MoradiaE: number = 0;
-    let DiversaoE: number = 0;
-    let TrabalhoE: number = 0;
-    let SupermecadoE: number = 0;
-    let SaudeE: number = 0;
-
-    let MoradiaS: number = 0;
-    let DiversaoS: number = 0;
-    let TrabalhoS: number = 0;
-    let SupermecadoS: number = 0;
-    let SaudeS: number = 0;
-
     let entradas: number[] = [];
     let saidas: number[] = [];
 
-    transactions.forEach(item => {
-        if (item.type == true && item.category == "Moradia") {
-            MoradiaE = item.amount;
-        } else if (item.type == true && item.category == "Diversão") {
-            DiversaoE = item.amount;
-        } else if (item.type == true && item.category == "Trabalho") {
-            TrabalhoE = item.amount;
-        } else if (item.type == true && item.category == "Supermercado") {
-            SupermecadoE = item.amount;
-        } else if (item.type == true && item.category == "Saúde") {
-            SaudeE = item.amount;
-        } else if (item.type == false && item.category == "Moradia") {
-            MoradiaS = item.amount;
-        } else if (item.type == false && item.category == "Diversão") {
-            DiversaoS = item.amount;
-        } else if (item.type == false && item.category == "Trabalho") {
-            TrabalhoS = item.amount;
-        } else if (item.type == false && item.category == "Supermercado") {
-            SupermecadoS = item.amount;
-        } else if (item.type == false && item.category == "Saúde") {
-            SaudeS = item.amount;
+    const entrada = transactions.reduce(
+        (acc, transaction) => {
+            if (transaction.type == true && transaction.category == "Moradia") {
+                acc.moradia += transaction.amount;
+            } else if (transaction.type == true && transaction.category == "Diversão") {
+                acc.diversao += transaction.amount;
+            } else if (transaction.type == true && transaction.category == "Trabalho") {
+                acc.trabalho += transaction.amount;
+            } else if (transaction.type == true && transaction.category == "Supermercado") {
+                acc.supermercado += transaction.amount;
+            } else if (transaction.type == true && transaction.category == "Saúde") {
+                acc.saude += transaction.amount;
+            }
+            return acc;
+        },
+        {
+            moradia: 0,
+            diversao: 0,
+            trabalho: 0,
+            supermercado: 0,
+            saude: 0,
         }
-    });
-    entradas.push(MoradiaE, TrabalhoE, DiversaoE, SupermecadoE, SaudeE);
-    saidas.push(MoradiaS, TrabalhoS, DiversaoS, SupermecadoS, SaudeS);
+    );
 
-    const bankSaida = saidas
+    const saida = transactions.reduce(
+        (acc, transaction) => {
+            if (transaction.type == false && transaction.category == "Moradia") {
+                acc.moradia += transaction.amount;
+            } else if (transaction.type == false && transaction.category == "Diversão") {
+                acc.diversao += transaction.amount;
+            } else if (transaction.type == false && transaction.category == "Trabalho") {
+                acc.trabalho += transaction.amount;
+            } else if (transaction.type == false && transaction.category == "Supermercado") {
+                acc.supermercado += transaction.amount;
+            } else if (transaction.type == false && transaction.category == "Saúde") {
+                acc.saude += transaction.amount;
+            }
+            return acc;
+        },
+        {
+            moradia: 0,
+            diversao: 0,
+            trabalho: 0,
+            supermercado: 0,
+            saude: 0,
+        }
+    );
+
+    entradas.push(entrada.moradia, entrada.diversao, entrada.trabalho, entrada.supermercado, entrada.saude);
+    saidas.push(saida.moradia, saida.diversao, saida.trabalho, saida.supermercado, saida.saude);
+
+    const catSaida = saidas
         .filter((value) => value >= 0)
-        .map((value, index) => ({
+        .map((value) => ({
             value,
             svg: {
                 fill: randomColor(),
             },
-            key: `categoryOut - ${saidas[index]}`,
+            key: `categoryOut - ${randomColor()}`,
         }));
 
-    const bankEntrada = entradas
+    const catEntrada = entradas
         .filter((value) => value >= 0)
-        .map((value, index) => ({
+        .map((value) => ({
             value,
             svg: {
                 fill: randomColor(),
             },
-            key: `categoryIn - ${entradas[index]}`,
+            key: `categoryIn - ${randomColor()}`,
         }));
 
     const Label = ({ slices }: any) => {
@@ -90,34 +103,38 @@ export function ChartCategory() {
     }
     return (
         <Container>
-            {bankEntrada.length > 0 && (
+            {entradas.length > 0 && (
                 <>
-                    <TopTitle>Categorias - Entradas</TopTitle><PieChart style={{ height: 300 }} data={bankEntrada}>
+                    <TopTitle>Categorias - Entradas</TopTitle>
+                    <PieChart style={{ height: 300 }} data={catEntrada}>
                         <Label slices={undefined} />
-                    </PieChart><LegendaWrapper>
+                    </PieChart>
+                    <LegendaWrapper>
                         {transactions.map(transaction => (
                             <Wrapper>
                                 {transaction.type == true &&
                                     <>
                                         <Cor style={{ backgroundColor: randomColor() }} />
-                                        <Legenda>{transaction.bank} - {currencyFormat(transaction.amount)}</Legenda>
+                                        <Legenda>{transaction.category} - {currencyFormat(transaction.amount)}</Legenda>
                                     </>}
                             </Wrapper>
                         ))}
                     </LegendaWrapper>
                 </>
             )}
-            {bankSaida.length > 0 && (
+            {transactions.length > 0 && (
                 <>
-                    <TopTitle>Categorias - Saídas</TopTitle><PieChart style={{ height: 300 }} data={bankSaida}>
+                    <TopTitle>Categorias - Saídas</TopTitle>
+                    <PieChart style={{ height: 300 }} data={catSaida}>
                         <Label slices={undefined} />
-                    </PieChart><LegendaWrapper>
+                    </PieChart>
+                    <LegendaWrapper>
                         {transactions.map(transaction => (
                             <Wrapper>
                                 {transaction.type == false &&
                                     <>
                                         <Cor style={{ backgroundColor: randomColor() }} />
-                                        <Legenda>{transaction.bank} - {currencyFormat(transaction.amount)}</Legenda>
+                                        <Legenda>{transaction.category} - {currencyFormat(transaction.amount)}</Legenda>
                                     </>}
                             </Wrapper>
                         ))}

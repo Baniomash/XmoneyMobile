@@ -65,10 +65,10 @@ export function ChartUnit() {
     }
     return (
         <Container>
-
             {dataEntradas.length > 0 && (
                 <>
-                    <TopTitle>Unitário - Entradas</TopTitle><PieChart style={{ height: 300 }} data={pieDataEntradas}>
+                    <TopTitle>Unitário - Entradas</TopTitle>
+                    <PieChart style={{ height: 300 }} data={pieDataEntradas}>
                         <Label slices={undefined} />
                     </PieChart>
                     <LegendaWrapper>
