@@ -64,22 +64,29 @@ export function ChartCategory() {
     entradas.push(entrada.moradia, entrada.diversao, entrada.trabalho, entrada.supermercado, entrada.saude);
     saidas.push(saida.moradia, saida.diversao, saida.trabalho, saida.supermercado, saida.saude);
 
+    function maiorQueZero(value: number) {
+    return value > 0;
+    }
+
+    let checaEntradas = entradas.some(maiorQueZero);
+    let checaSaidas = saidas.some(maiorQueZero);
+
     const catSaida = saidas
         .filter((value) => value >= 0)
-        .map((value) => ({
+        .map((value, index) => ({
             value,
             svg: {
-                fill: randomColor(),
+                fill: ["red", "blue", "green", "yellow", "cyan"][index],
             },
-            key: `categoryOut - ${randomColor()}`,
+            key: `categoryOut - ${randomColor()}}`,
         }));
 
     const catEntrada = entradas
         .filter((value) => value >= 0)
-        .map((value) => ({
+        .map((value, index) => ({
             value,
             svg: {
-                fill: randomColor(),
+                fill: ["red", "blue", "green", "yellow", "cyan"][index],
             },
             key: `categoryIn - ${randomColor()}`,
         }));
@@ -103,41 +110,73 @@ export function ChartCategory() {
     }
     return (
         <Container>
-            {entradas.length > 0 && (
+            {checaEntradas == true && (
                 <>
                     <TopTitle>Categorias - Entradas</TopTitle>
                     <PieChart style={{ height: 300 }} data={catEntrada}>
                         <Label slices={undefined} />
                     </PieChart>
                     <LegendaWrapper>
-                        {transactions.map(transaction => (
+                        {entrada.moradia > 0 && 
                             <Wrapper>
-                                {transaction.type == true &&
-                                    <>
-                                        <Cor style={{ backgroundColor: randomColor() }} />
-                                        <Legenda>{transaction.category} - {currencyFormat(transaction.amount)}</Legenda>
-                                    </>}
-                            </Wrapper>
-                        ))}
+                                <Cor style={{ backgroundColor:"red" }} />
+                                <Legenda>Moradia</Legenda>
+                            </Wrapper>}
+                        {entrada.diversao > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "blue" }} />
+                                <Legenda>Diversão</Legenda>
+                            </Wrapper>}
+                        {entrada.trabalho > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "green" }} />
+                                <Legenda>Trabalho</Legenda>
+                            </Wrapper>}
+                        {entrada.supermercado > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "yellow" }} />
+                                <Legenda>Supermecado</Legenda>
+                            </Wrapper>}
+                        {entrada.saude > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "cyan" }} />
+                                <Legenda>Saúde</Legenda>
+                            </Wrapper>}
                     </LegendaWrapper>
                 </>
             )}
-            {transactions.length > 0 && (
+            {checaSaidas == true && (
                 <>
                     <TopTitle>Categorias - Saídas</TopTitle>
                     <PieChart style={{ height: 300 }} data={catSaida}>
                         <Label slices={undefined} />
                     </PieChart>
                     <LegendaWrapper>
-                        {transactions.map(transaction => (
+                        {saida.moradia > 0 && 
                             <Wrapper>
-                                {transaction.type == false &&
-                                    <>
-                                        <Cor style={{ backgroundColor: randomColor() }} />
-                                        <Legenda>{transaction.category} - {currencyFormat(transaction.amount)}</Legenda>
-                                    </>}
-                            </Wrapper>
-                        ))}
+                                <Cor style={{ backgroundColor:"red" }} />
+                                <Legenda>Moradia</Legenda>
+                            </Wrapper>}
+                        {saida.diversao > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "blue" }} />
+                                <Legenda>Diversão</Legenda>
+                            </Wrapper>}
+                        {saida.trabalho > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "green" }} />
+                                <Legenda>Trabalho</Legenda>
+                            </Wrapper>}
+                        {saida.supermercado > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "yellow" }} />
+                                <Legenda>Supermecado</Legenda>
+                            </Wrapper>}
+                        {saida.saude > 0 &&
+                            <Wrapper>
+                                <Cor style={{ backgroundColor: "cyan" }} />
+                                <Legenda>Saúde</Legenda>
+                            </Wrapper>}
                     </LegendaWrapper>
                 </>
             )}

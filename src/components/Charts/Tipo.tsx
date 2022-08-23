@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 import { useTransactions } from '../../hooks/useTransactions';
@@ -39,8 +39,6 @@ export function ChartType() {
         }));
 
     const Label = ({ slices }: any) => {
-        setTotalIncome(summary.entrada);
-        setTotalOutcome(summary.saida);
         return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
             const { pieCentroid, data } = slice;
             return (
@@ -59,6 +57,11 @@ export function ChartType() {
             )
         });
     }
+    useEffect(() => {
+        setTotalIncome(summary.entrada);
+        setTotalOutcome(summary.saida);
+    },[]);
+
     return (
         <Container>{transactions.length > 0 && (
             <>

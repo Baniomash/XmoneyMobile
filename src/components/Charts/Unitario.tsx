@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 import { useTransactions } from '../../hooks/useTransactions';
@@ -11,23 +11,28 @@ export function ChartUnit() {
     const { transactions } = useTransactions();
 
     let dataEntradas: number[] = [];
+    let coresEntradas: string[]= [];
     let dataSaidas: number[] = [];
+    let coresSaidas: string[]= [];
+    let i: number = -1;
 
     transactions.forEach(item => {
         if (item.type == true) {
             dataEntradas.push(item.amount);
+            coresEntradas.push(randomColor());
         } else if (item.type == false) {
             dataSaidas.push(item.amount);
+            randomColor()
+            coresSaidas.push(randomColor());
         }
-    });
-    console.log(dataEntradas, dataSaidas);
+    });    
 
     const pieDataEntradas = dataEntradas
         .filter((value) => value >= 0)
         .map((value, index) => ({
             value,
             svg: {
-                fill: randomColor(),
+                fill: coresEntradas[index],
                 onPress: () => console.log(`${transactions[index].title}`),
             },
             key: `unitIn - ${transactions[index].id}`,
@@ -38,7 +43,7 @@ export function ChartUnit() {
         .map((value, index) => ({
             value,
             svg: {
-                fill: randomColor(),
+                fill: coresSaidas[index],
                 onPress: () => console.log(`${transactions[index].title}`),
             },
             key: `unitOut - ${transactions[index].id}`,
@@ -48,7 +53,6 @@ export function ChartUnit() {
         return slices.map((slice: { pieCentroid: any; data: any; }, index: any) => {
             const { pieCentroid, data } = slice;
             return (
-
                 <Text
                     key={`label - ${index}`}
                     x={pieCentroid[0]}
@@ -63,6 +67,16 @@ export function ChartUnit() {
             )
         });
     }
+
+    function somaValor(){
+        if(i<coresEntradas.length-1 || i<coresSaidas.length-1){
+            i++
+        } else {
+            i = 0
+        }
+        return i
+    }
+
     return (
         <Container>
             {dataEntradas.length > 0 && (
@@ -76,9 +90,10 @@ export function ChartUnit() {
                             <Wrapper>
                                 {transaction.type == true &&
                                     <>
-                                        <Cor style={{ backgroundColor: randomColor() }} />
+                                        <Cor style={{ backgroundColor: coresEntradas[somaValor()] }} />
                                         <Legenda>{transaction.title} - {currencyFormat(transaction.amount)}</Legenda>
-                                    </>}
+                                    </>
+                                    }
                             </Wrapper>
                         ))}
                     </LegendaWrapper>
@@ -93,7 +108,7 @@ export function ChartUnit() {
                             <Wrapper>
                                 {transaction.type == false &&
                                     <>
-                                        <Cor style={{ backgroundColor: randomColor() }} />
+                                        <Cor style={{ backgroundColor: coresSaidas[somaValor()] }} />
                                         <Legenda>{transaction.title} - {currencyFormat(transaction.amount)}</Legenda>
                                     </>}
                             </Wrapper>

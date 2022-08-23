@@ -13,7 +13,6 @@ export interface Usuarios {
   id: number;
   login: string;
   password: string;
-
 }
 
 type LoginInput = Omit<Usuarios, "id">;

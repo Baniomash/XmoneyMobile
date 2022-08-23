@@ -52,9 +52,7 @@ export function LoginBoard({ onLogin, navigation }: LoginBoardProps) {
   });
 
   const handleBiometricAuth = async () => {
-
     const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
-
     const biometricAuth = await LocalAuthentication.authenticateAsync({
       promptMessage: 'Toque no sensor de impressão digital',
       disableDeviceFallback: true,
