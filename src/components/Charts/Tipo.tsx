@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { PieChart } from 'react-native-svg-charts'
+import { BarChart, Grid, PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 import { useTransactions } from '../../hooks/useTransactions';
 import { Container, Cor, Legenda, LegendaWrapper, TopTitle, Wrapper, Error, ErrorMsg } from './styles';

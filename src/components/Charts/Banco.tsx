@@ -94,6 +94,7 @@ export function ChartBank() {
             const { pieCentroid, data } = slice;
             return (
                 <Text
+                    key={`value - ${randomColor()}`}
                     x={pieCentroid[0]}
                     y={pieCentroid[1]}
                     fill={'black'}

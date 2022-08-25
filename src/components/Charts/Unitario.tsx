@@ -54,7 +54,7 @@ export function ChartUnit() {
             const { pieCentroid, data } = slice;
             return (
                 <Text
-                    key={`label - ${index}`}
+                    key={`unitText - ${randomColor()}`}
                     x={pieCentroid[0]}
                     y={pieCentroid[1]}
                     fill={'black'}
@@ -87,7 +87,7 @@ export function ChartUnit() {
                     </PieChart>
                     <LegendaWrapper>
                         {transactions.map(transaction => (
-                            <Wrapper>
+                            <Wrapper key={transaction.id}>
                                 {transaction.type == true &&
                                     <>
                                         <Cor style={{ backgroundColor: coresEntradas[somaValor()] }} />
@@ -103,9 +103,10 @@ export function ChartUnit() {
                 <>
                     <TopTitle>Unitário - Saídas</TopTitle><PieChart style={{ height: 300 }} data={pieDataSaidas}>
                         <Label slices={undefined} />
-                    </PieChart><LegendaWrapper>
+                    </PieChart>
+                    <LegendaWrapper>
                         {transactions.map(transaction => (
-                            <Wrapper>
+                            <Wrapper key={transaction.id}>
                                 {transaction.type == false &&
                                     <>
                                         <Cor style={{ backgroundColor: coresSaidas[somaValor()] }} />
